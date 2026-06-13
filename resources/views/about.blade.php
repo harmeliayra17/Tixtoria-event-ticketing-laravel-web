@@ -6,131 +6,150 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <title>{{ config('app.name', 'Tixtoria') }}</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <title>About - Tixtoria</title>
     <link rel="icon" href="{{ asset('images/logo.ico') }}" type="image/x-icon">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+    </style>
 </head>
-<body>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col justify-between">
     <!-- Navbar -->
-    <header class="bg-white shadow-sm sticky top-0 z-50">
-        <div class="mx-auto px-20 lg:px-20 py-4 flex justify-between gap-6 items-center">
-            <img src="{{ asset('images/logo.png') }}" alt="Tixtoria Logo" class="h-8 rounded-md">
-            <nav class="hidden lg:flex space-x-6">
-                <a href="{{ url('/') }}" class="text-[#1B1464] hover:text-[#640D5F] relative inline-block {{ Request::is('/') ? 'text-[#640D5F]' : '' }}" style="position: relative; display: inline-block;">
+    <header class="bg-white/90 backdrop-blur-md border-b border-slate-100 sticky top-0 z-50 transition-all duration-300">
+        <div class="mx-auto px-6 lg:px-20 py-4 flex justify-between gap-6 items-center">
+            <a href="{{ url('/') }}" class="flex items-center">
+                <img src="{{ asset('images/logo.png') }}" alt="Tixtoria Logo" class="h-8 rounded-md">
+            </a>
+            
+            <nav class="hidden lg:flex space-x-8">
+                <a href="{{ url('/') }}" class="text-[#1B1464] hover:text-[#640D5F] text-sm font-medium relative py-1.5 transition {{ Request::is('/') ? 'text-[#640D5F]' : '' }}">
                     Home
-                    <span class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-px bg-[#640D5F] transition-all duration-300 {{ Request::is('/') ? 'w-full rounded-full' : 'w-0' }}"></span>
+                    <span class="absolute bottom-0 left-0 w-full h-0.5 bg-[#640D5F] rounded-full scale-x-0 transition-transform duration-300 origin-left {{ Request::is('/') ? 'scale-x-100' : '' }}"></span>
                 </a>
             
-                <a href="{{ route('eventCatalog') }}" class="text-[#1B1464] hover:text-[#640D5F] relative inline-block {{ Request::is('eventCatalog') ? 'text-[#640D5F]' : '' }}" style="position: relative; display: inline-block;">
+                <a href="{{ route('eventCatalog') }}" class="text-[#1B1464] hover:text-[#640D5F] text-sm font-medium relative py-1.5 transition {{ Request::is('eventCatalog') ? 'text-[#640D5F]' : '' }}">
                     Event Catalog
-                    <span class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-px bg-[#640D5F] transition-all duration-300 {{ Request::is('eventCatalog') ? 'w-full rounded-full' : 'w-0' }}"></span>
+                    <span class="absolute bottom-0 left-0 w-full h-0.5 bg-[#640D5F] rounded-full scale-x-0 transition-transform duration-300 origin-left {{ Request::is('eventCatalog') ? 'scale-x-100' : '' }}"></span>
                 </a>
             
-                <a href="{{ url('/about') }}" class="text-[#1B1464] hover:text-[#640D5F] relative inline-block {{ Request::is('about') ? 'text-[#640D5F]' : '' }}" style="position: relative; display: inline-block;">
+                <a href="{{ url('/about') }}" class="text-[#1B1464] hover:text-[#640D5F] text-sm font-medium relative py-1.5 transition {{ Request::is('about') ? 'text-[#640D5F]' : '' }}">
                     About
-                    <span class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-px bg-[#640D5F] transition-all duration-300 {{ Request::is('about') ? 'w-full rounded-full' : 'w-0' }}"></span>
+                    <span class="absolute bottom-0 left-0 w-full h-0.5 bg-[#640D5F] rounded-full scale-x-0 transition-transform duration-300 origin-left {{ Request::is('about') ? 'scale-x-100' : '' }}"></span>
                 </a>
             
-                <a href="{{ url('/contact') }}" class="text-[#1B1464] hover:text-[#640D5F] relative inline-block {{ Request::is('contact') ? 'text-[#640D5F]' : '' }}" style="position: relative; display: inline-block;">
+                <a href="{{ url('/contact') }}" class="text-[#1B1464] hover:text-[#640D5F] text-sm font-medium relative py-1.5 transition {{ Request::is('contact') ? 'text-[#640D5F]' : '' }}">
                     Contact
-                    <span class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-px bg-[#640D5F] transition-all duration-300 {{ Request::is('contact') ? 'w-full rounded-full' : 'w-0' }}"></span>
+                    <span class="absolute bottom-0 left-0 w-full h-0.5 bg-[#640D5F] rounded-full scale-x-0 transition-transform duration-300 origin-left {{ Request::is('contact') ? 'scale-x-100' : '' }}"></span>
                 </a>
             </nav>           
+
             @auth
             <div x-data="{ open: false }" class="relative">
-                <!-- Nama Pengguna -->
                 <button @click="open = !open" 
-                        class="text-[#640D5F] px-6 py-2 rounded-lg hidden lg:flex items-center space-x-2 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#640D5F]">
+                        class="text-[#640D5F] px-4 py-2 rounded-full hidden lg:flex items-center space-x-2 hover:bg-slate-50 border border-[#640D5F]/20 font-medium text-sm transition focus:outline-none">
                     <span>{{ Auth::user()->name }}</span>
-                    <!-- Ikon Panah -->
-                    <svg xmlns="http://www.w3.org/2000/svg" 
-                         class="w-4 h-4 transition-transform duration-200" 
-                         :class="{'rotate-180': open}" 
-                         fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-                    </svg>
+                    <i data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-200" :class="{'rotate-180': open}"></i>
                 </button>
             
                 <!-- Dropdown -->
                 <div x-show="open" 
                      @click.away="open = false" 
-                     class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-10"
+                     class="absolute right-0 mt-2 w-48 bg-white border border-slate-100 rounded-2xl shadow-xl z-50 overflow-hidden"
                      x-transition:enter="transition ease-out duration-200"
                      x-transition:enter-start="opacity-0 transform scale-95"
                      x-transition:enter-end="opacity-100 transform scale-100"
                      x-transition:leave="transition ease-in duration-75"
                      x-transition:leave-start="opacity-100 transform scale-100"
                      x-transition:leave-end="opacity-0 transform scale-95">
-                     <a href="{{ url('/dashboard') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Dashboard</a>
+                     @if(Auth::user()->role === 'admin')
+                         <a href="{{ route('admin.dashboard') }}" class="block px-4 py-2.5 text-sm text-slate-700 hover:bg-[#640D5F]/5 hover:text-[#640D5F]">Dashboard</a>
+                     @elseif(Auth::user()->role === 'organizer')
+                         <a href="{{ route('organizer.dashboard') }}" class="block px-4 py-2.5 text-sm text-slate-700 hover:bg-[#640D5F]/5 hover:text-[#640D5F]">Dashboard</a>
+                     @else
+                         <a href="{{ route('user.dashboard') }}" class="block px-4 py-2.5 text-sm text-slate-700 hover:bg-[#640D5F]/5 hover:text-[#640D5F]">Dashboard</a>
+                     @endif
                     
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                        <button type="submit" class="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-left">
+                        <button type="submit" class="block w-full px-4 py-2.5 text-sm text-slate-700 hover:bg-[#640D5F]/5 hover:text-[#640D5F] text-left border-t border-slate-50">
                             Log Out
                         </button>
                     </form>
                 </div>
             </div>                       
             @else
-                <!-- Jika belum login, tampilkan tombol Login -->
-                <a href="{{ route('login') }}" class="text-[#640D5F] hover:text-[#1B1464] text-lg hidden lg:block" style="font-size: 16px">
+                <a href="{{ route('login') }}" class="bg-gradient-to-r from-[#640D5F] to-[#1B1464] text-white text-sm font-semibold px-6 py-2.5 rounded-full hover:shadow-lg hover:brightness-110 transition hidden lg:block">
                     Login/Register
-                </a>                
-                </button>
+                </a>
             @endauth              
         </div>
     </header>
 
-    <!-- About Section -->
-<!-- About Section -->
-<section class="bg-white py-12">
-    <div class="container mx-auto px-6 flex flex-col lg:flex-row items-center gap-8">
-        <!-- Gambar -->
-        <div class="w-full lg:w-1/2">
-            <img src="https://via.placeholder.com/500x300" alt="About Image" class="rounded-lg shadow-md">
+    <!-- Header Banner -->
+    <section class="bg-gradient-to-r from-[#1B1464] to-[#640D5F] py-12 text-white">
+        <div class="container mx-auto px-6 lg:px-20">
+            <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight">About Tixtoria</h1>
+            <p class="text-slate-200 mt-2 text-sm md:text-base font-light">Empowering communities to create unforgettable premium experiences.</p>
         </div>
-        <!-- Teks -->
-        <div class="w-full lg:w-1/2">
-            <h2 class="text-3xl font-bold text-purple-700 mb-4">About Tixtoria</h2>
-            <p class="text-lg text-gray-600 mb-6">
-                Tixtoria is a platform designed to connect event organizers and attendees seamlessly. With cutting-edge tools, we empower communities to create unforgettable experiences. Whether you're hosting concerts, conferences, or local gatherings, Tixtoria ensures smooth management and unparalleled engagement.
-            </p>
-            <p class="text-lg text-gray-600">
-                Our platform supports organizers with easy ticketing, attendee management, and insightful analytics. Join thousands of happy users and explore how Tixtoria can revolutionize your events. Together, we create moments that last a lifetime.
-            </p>
-        </div>
-    </div>
-</section>
+    </section>
 
-
+    <!-- About Content -->
+    <section class="py-16">
+        <div class="container mx-auto px-6 lg:px-20">
+            <div class="bg-white border border-slate-100 rounded-2xl shadow-xl p-8 md:p-12 flex flex-col lg:flex-row items-center gap-12">
+                <!-- Image -->
+                <div class="w-full lg:w-1/2 relative">
+                    <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?w=800&auto=format&fit=crop&q=80" alt="About Tixtoria" class="rounded-2xl shadow-md w-full object-cover aspect-[4/3]">
+                    <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-[#640D5F]/10 rounded-2xl -z-10"></div>
+                </div>
+                <!-- Text -->
+                <div class="w-full lg:w-1/2 space-y-6">
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#640D5F]/10 text-[#640D5F] text-[10px] font-bold uppercase tracking-wider">
+                        Who We Are
+                    </span>
+                    <h2 class="text-3xl font-extrabold text-[#1B1464] tracking-tight leading-tight">Connecting Organizers & Attendees Seamlessly</h2>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Tixtoria is a professional global ticketing platform designed to connect event organizers and attendees seamlessly. With cutting-edge dashboard analytics, secure payment integrations, and direct QR ticket generation, we empower communities to create unforgettable experiences.
+                    </p>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Whether you are hosting live concerts, corporate seminars, educational workshops, or local cultural festivals, Tixtoria ensures smooth quota management and ticket sales analytics. Join us and revolutionize how you host and discover events.
+                    </p>
+                </div>
             </div>
         </div>
     </section>
 
-      <!-- Footer -->
-      <footer class="bg-gray-900 text-white py-8">
-        <div class="container mx-auto px-6 lg:px-20 flex justify-between flex-wrap">
-            <div class="w-full lg:w-1/3 mb-6 lg:mb-0">
-                <img src="{{ asset('images/logo-wht.png') }}" alt="Tixtoria Logo" class="h-8 rounded-md">
-                <p class="mt-2 text-gray-400">A global self-service ticketing platform for live experiences.</p>
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-slate-400 py-12 mt-auto">
+        <div class="container mx-auto px-6 lg:px-20 flex justify-between flex-wrap gap-8">
+            <div class="w-full lg:w-1/3">
+                <img src="{{ asset('images/logo-wht.png') }}" alt="Tixtoria Logo" class="h-8 rounded-md mb-4">
+                <p class="text-sm">A global self-service ticketing platform for premium live experiences.</p>
             </div>
-            <div class="w-full lg:w-1/3 mb-6 lg:mb-0">
-                <h3 class="text-lg font-bold">Plan Events</h3>
-                <ul class="text-gray-400 space-y-2 mt-2">
-                    <li><a href="#" class="hover:underline">Create and Set Up</a></li>
-                    <li><a href="#" class="hover:underline">Sell Tickets</a></li>
-                    <li><a href="#" class="hover:underline">Online RSVP</a></li>
+            <div class="w-full lg:w-1/4">
+                <h3 class="text-white text-base font-bold mb-4">Plan Events</h3>
+                <ul class="space-y-2.5 text-sm">
+                    <li><a href="#" class="hover:text-white transition">Create and Set Up</a></li>
+                    <li><a href="#" class="hover:text-white transition">Sell Tickets</a></li>
+                    <li><a href="#" class="hover:text-white transition">Online RSVP</a></li>
                 </ul>
             </div>
             <div class="w-full lg:w-1/3">
-                <h3 class="text-lg font-bold">Stay In The Loop</h3>
-                <div class="mt-4">
-                    <input type="email" placeholder="Enter your email address" class="px-4 py-2 rounded-lg w-full">
-                    <button class="bg-[#640D5F] text-white px-6 py-2 rounded-lg mt-4 block w-full">Subscribe Now</button>
+                <h3 class="text-white text-base font-bold mb-4">Stay In The Loop</h3>
+                <div class="flex gap-2">
+                    <input type="email" placeholder="Enter your email address" class="px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-[#640D5F] w-full text-sm">
+                    <button class="bg-[#640D5F] text-white px-6 py-2.5 rounded-xl text-sm font-semibold hover:brightness-110 transition flex-shrink-0">Subscribe</button>
                 </div>
             </div>
         </div>
-        <div class="text-center mt-8 text-gray-400">Copyright © 2023 Tixtoria. All rights reserved.</div>
+        <div class="border-t border-slate-800 mt-10 pt-6 text-center text-xs">Copyright © 2026 Tixtoria. All rights reserved.</div>
     </footer>
+
+    <script>
+        lucide.createIcons();
+    </script>
 </body>
 </html>

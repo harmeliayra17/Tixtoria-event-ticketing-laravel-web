@@ -1,4 +1,4 @@
-@extends('user.partials.sidebar')
+@extends('admin.partials.sidebar')
 
 @section('title', 'Profile Settings')
 

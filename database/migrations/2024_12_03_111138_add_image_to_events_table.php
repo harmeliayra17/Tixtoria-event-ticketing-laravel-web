@@ -9,21 +9,16 @@ class AddImageToEventsTable extends Migration
     public function up()
     {
         Schema::table('events', function (Blueprint $table) {
-            // Mengubah kolom 'image' menjadi not nullable
-            $table->string('image')->nullable(false)->change();
+            $table->string('image')->nullable();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::table('events', function (Blueprint $table) {
-            // Mengembalikan kolom 'image' ke nullable
-            $table->string('image')->nullable()->change();
+            $table->dropColumn('image');
         });
     }
 }
+
+

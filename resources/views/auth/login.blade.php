@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+1<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
     <style>
         /* Animasi Slide-in */
         body {
@@ -55,7 +56,7 @@
                         <div class="w-full max-w-sm mb-6">
                             <a href="{{ route('homepage') }}" 
                                 class="inline-flex items-center text-sm font-medium text-gray-600 hover:text-gray-900 transition duration-300">
-                                <span class="material-icons text-base mr-1">arrow_back</span>
+                                <i data-lucide="arrow-left" class="w-4 h-4 mr-1"></i>
                                 Back
                             </a>
                         </div>
@@ -115,5 +116,8 @@
             </div>
         </div>
     </div>
+    <script>
+        lucide.createIcons();
+    </script>
 </body>
 </html>

@@ -23,7 +23,6 @@ class DropEventImagesTable extends Migration
      */
     public function down()
     {
-        // Jika Anda ingin membalikkan migration ini, buat tabel kembali
         Schema::create('event_images', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('event_id');

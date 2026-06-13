@@ -3,118 +3,130 @@
 @section('title', 'Manage Users')
 
 @section('content')
+<div class="space-y-6 pb-12 w-full">
+  <!-- KPI Widgets -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <!-- Card 1: User Count -->
+    <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm flex items-center justify-between">
+      <div>
+        <span class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Total Clients</span>
+        <h3 class="text-3xl font-extrabold text-[#1B1464] mt-2">{{ $userCount }}</h3>
+      </div>
+      <div class="w-12 h-12 rounded-2xl bg-[#640D5F]/5 flex items-center justify-center">
+        <i data-lucide="users" class="w-6 h-6 text-[#640D5F]"></i>
+      </div>
+    </div>
 
-
-<main class="flex-1 p-0 bg-gray-100">
-  <!-- Informasi Jumlah User dan EO -->
-  <div class="grid grid-cols-2 gap-6 mb-6">
-  <!-- Card 1: User Count -->
-  <div class="bg-gradient-to-r from-[#640D5F] to-[#1B1464] shadow p-4 rounded-lg flex flex-col justify-between items-center">
-    <span class="material-icons text-4xl mb-2 text-white">group</span>
-    <span class="text-lg font-bold text-white">User</span>
-    <span class="text-2xl font-semibold text-white">{{ $userCount }}</span>
-  </div>
-
-  <!-- Card 2: Organizer Count -->
-  <div class="bg-gradient-to-r from-[#640D5F] to-[#1B1464] shadow p-4 rounded-lg flex flex-col justify-between items-center">
-    <span class="material-icons text-4xl mb-2 text-white">event</span>
-    <span class="text-lg font-bold text-white">Organizer</span>
-    <span class="text-2xl font-semibold text-white">{{ $organizerCount }}</span>
-  </div>
-
+    <!-- Card 2: Organizer Count -->
+    <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm flex items-center justify-between">
+      <div>
+        <span class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Total Organizers</span>
+        <h3 class="text-3xl font-extrabold text-[#1B1464] mt-2">{{ $organizerCount }}</h3>
+      </div>
+      <div class="w-12 h-12 rounded-2xl bg-[#640D5F]/5 flex items-center justify-center">
+        <i data-lucide="calendar" class="w-6 h-6 text-[#640D5F]"></i>
+      </div>
+    </div>
   </div>  
 
-  <!-- Form Pencarian dan Tombol Create User -->
-  <div class="flex justify-between items-center mb-4">
-    <!-- Form Pencarian -->
-    <form action="{{ route('admin.manageUsers') }}" method="GET" class="flex items-center space-x-2">
+  <!-- Actions Panel -->
+  <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm flex flex-col md:flex-row justify-between items-center gap-4">
+    <!-- Search Form -->
+    <form action="{{ route('admin.manageUsers') }}" method="GET" class="flex items-center gap-3 w-full md:w-auto">
         <div class="relative w-full max-w-sm">
+            <i data-lucide="search" class="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400 w-4 h-4"></i>
             <input 
                 type="text" 
                 name="search" 
-                placeholder="Search users..." 
+                placeholder="Search users by name or email..." 
                 value="{{ request('search') }}" 
-                class="w-full px-4 py-2 border border-[#640D5F] rounded-lg focus:outline-none focus:ring-1 focus:ring-[#640D5F]"
+                class="w-full h-11 bg-slate-50 border border-slate-200 rounded-xl pl-12 pr-4 focus:outline-none focus:border-[#640D5F] text-sm"
             />
         </div>
         <button 
             type="submit" 
-            class="flex items-center px-4 py-2 bg-[#640D5F] text-white rounded-lg hover:bg-[#41083e] transition duration-300">
-            <i class="fa fa-search mr-2"></i> Search
+            class="h-11 px-6 bg-[#640D5F] text-white rounded-xl hover:brightness-110 active:scale-98 transition text-sm font-semibold flex items-center gap-2">
+            Search
         </button>
     </form>
 
-    <!-- Tombol Create User -->
+    <!-- Create User Button -->
     <a 
         href="{{ route('admin.createUser') }}" 
-        class="flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition duration-300">
-        <span class="material-icons mr-2">
-            person_add
-        </span>
-        Create User
+        class="inline-flex items-center gap-1.5 px-5 py-3 bg-emerald-600 text-white text-xs font-bold rounded-xl hover:bg-emerald-700 transition duration-200 shadow-md">
+        <i data-lucide="user-plus" class="w-4 h-4"></i>
+        <span>Create User</span>
     </a>
   </div>
 
-
-  <!-- Daftar Pengguna -->
-  <div class="bg-white shadow rounded-lg p-6">
-    <h2 class="text-xl font-bold mb-4">Daftar Pengguna</h2>
-    <table class="w-full table-auto border-collapse">
-      <thead>
-        <tr class="text-left bg-gray-200">
-          <th class="p-4">Profile</th>
-          <th class="p-4">Nama</th>
-          <th class="p-4">Email</th>
-          <th class="p-4">Role</th>
-          <th class="p-4 text-center">Aksi</th>
-        </tr>
-      </thead>
-      <tbody>
-        @foreach ($users as $user)
-        <tr class="border-b text-sm">
-            <td class="p-4">
-                <img src="{{ $user->profile }}" alt="Profile" class="w-10 h-10 rounded-full object-cover">
-            </td>
-            <td class="p-4">{{ $user->name }}</td>
-            <td class="p-4">{{ $user->email }}</td>
-            <td class="p-4">{{ ucfirst($user->role) }}</td>
-            <td class="p-4 text-center">
-              <div class="flex justify-center gap-4">
-                  <!-- Tombol Edit -->
-                  <a href="{{ route('admin.editUser', $user->id) }}" 
-                     class="text-white p-2 rounded-full hover:shadow-lg transition duration-300" 
-                     style="background-color: #640D5F" 
-                     title="Edit User">
-                      <span class="material-icons">edit</span>
-                  </a>
-          
-                  <!-- Tombol Delete -->
-                  <button 
-                      class="text-white p-2 rounded-full hover:shadow-lg transition duration-300" 
-                      style="background-color: #af0c0c" 
-                      title="Delete User" 
-                      onclick="openDeleteModal({{ $user->id }})">
-                      <span class="material-icons">delete</span>
-                  </button>
-              </div>
-          </td>          
-          </tr>
-         @endforeach
-     </tbody>    
-    </table>
+  <!-- Users Table Listing -->
+  <div class="bg-white border border-slate-100 rounded-2xl shadow-sm overflow-hidden">
+    <div class="p-6 border-b border-slate-100">
+        <h2 class="text-lg font-bold text-[#1B1464]">Daftar Pengguna</h2>
+    </div>
+    <div class="overflow-x-auto">
+        <table class="w-full table-auto border-collapse">
+          <thead>
+            <tr class="bg-slate-50 border-b border-slate-100 text-left text-xs font-bold text-slate-400 uppercase tracking-wider">
+              <th class="p-4 pl-6">Profile</th>
+              <th class="p-4">Nama</th>
+              <th class="p-4">Email</th>
+              <th class="p-4">Role</th>
+              <th class="p-4 pr-6 text-center">Aksi</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100 text-sm">
+            @foreach ($users as $user)
+            <tr class="hover:bg-slate-50/50 transition">
+                <td class="p-4 pl-6">
+                    <img src="{{ $user->profile }}" alt="Profile" class="w-10 h-10 rounded-full object-cover border border-slate-100">
+                </td>
+                <td class="p-4 font-semibold text-slate-800">{{ $user->name }}</td>
+                <td class="p-4 text-slate-600">{{ $user->email }}</td>
+                <td class="p-4">
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+                        @if($user->role === 'admin') bg-purple-50 text-purple-700 border border-purple-200
+                        @elseif($user->role === 'organizer') bg-blue-50 text-blue-700 border border-blue-200
+                        @else bg-slate-100 text-slate-700 border border-slate-200
+                        @endif">
+                        {{ ucfirst($user->role) }}
+                    </span>
+                </td>
+                <td class="p-4 pr-6 text-center">
+                  <div class="flex justify-center gap-2">
+                      <!-- Edit Button -->
+                      <a href="{{ route('admin.editUser', $user->id) }}" 
+                         class="text-slate-600 p-2 bg-slate-50 border border-slate-200 rounded-xl hover:text-[#640D5F] hover:border-[#640D5F]/30 transition" 
+                         title="Edit User">
+                          <i data-lucide="edit-2" class="w-4 h-4"></i>
+                      </a>
+              
+                      <!-- Delete Button -->
+                      <button 
+                          class="text-rose-600 p-2 bg-rose-50 border border-rose-100 rounded-xl hover:bg-rose-100/50 transition" 
+                          title="Delete User" 
+                          onclick="openDeleteModal({{ $user->id }})">
+                          <i data-lucide="trash-2" class="w-4 h-4"></i>
+                      </button>
+                  </div>
+              </td>          
+            </tr>
+            @endforeach
+          </tbody>    
+        </table>
+    </div>
   </div>
-</main>
-@endsection
+</div>
 
-<!-- Modal Konfirmasi Hapus -->
-<div id="deleteModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center hidden">
-  <div class="bg-white rounded-lg shadow-lg w-1/3 p-6">
-      <h3 class="text-xl font-bold mb-4">Confirm Deletion</h3>
-      <p class="mb-6 text-gray-700">Are you sure you want to delete this user? This action cannot be undone.</p>
-      <div class="flex justify-end space-x-4">
+<!-- Delete Confirmation Modal -->
+<div id="deleteModal" class="fixed inset-0 bg-slate-900 bg-opacity-50 flex justify-center items-center hidden z-50">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md p-6 border border-slate-100 mx-4">
+        <h3 class="text-lg font-bold text-slate-900 mb-2">Delete User</h3>
+        <p class="mb-6 text-sm text-slate-500 leading-relaxed">Are you sure you want to delete this user? This action cannot be undone and will delete all booking history linked to this account.</p>
+        <div class="flex justify-end space-x-3">
             <button 
                 onclick="closeDeleteModal()" 
-                class="px-4 py-2 bg-gray-300 text-gray-800 rounded-lg hover:bg-gray-400">
+                class="px-4 py-2 bg-slate-100 text-slate-600 rounded-xl hover:bg-slate-200 text-sm font-semibold transition">
                 Cancel
             </button>
             <form id="deleteForm" method="POST">
@@ -122,7 +134,7 @@
                 @method('DELETE')
                 <button 
                     type="submit" 
-                    class="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">
+                    class="px-4 py-2 bg-rose-600 text-white rounded-xl hover:bg-rose-700 text-sm font-semibold transition shadow-md">
                     Delete
                 </button>
             </form>
@@ -143,3 +155,4 @@
       deleteModal.classList.add('hidden');
   }
 </script>
+@endsection

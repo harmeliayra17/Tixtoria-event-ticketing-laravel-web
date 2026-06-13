@@ -12,10 +12,6 @@ use App\Models\Booking;
 
 class ProfileController extends Controller
 {
-    /**
-     * Display the user's profile form.
-     */
-    
     public function edit(Request $request): View
     {
         return view('user.partials.edit', [
@@ -23,25 +19,26 @@ class ProfileController extends Controller
         ]);
     }
 
-    /**
-     * Update the user's profile information.
-     */
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
+        $user = $request->user();
+        $user->fill($request->validated());
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        if ($user->isDirty('email')) {
+            $user->email_verified_at = null;
         }
 
-        $request->user()->save();
+        $user->save();
 
-        return Redirect::route('user.partials.edit')->with('status', 'profile-updated');
+        if ($user->role === 'admin') {
+            return Redirect::route('admin.profile.edit')->with('status', 'profile-updated');
+        } elseif ($user->role === 'organizer') {
+            return Redirect::route('organizer.profile.edit')->with('status', 'profile-updated');
+        }
+
+        return Redirect::route('user.profile.edit')->with('status', 'profile-updated');
     }
 
-    /**
-     * Delete the user's account.
-     */
     public function destroy(Request $request): RedirectResponse
     {
         $request->validateWithBag('userDeletion', [
@@ -51,99 +48,114 @@ class ProfileController extends Controller
         $user = $request->user();
 
         Auth::logout();
-
         $user->delete();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return Redirect::to('/user/dashboard');
+        return Redirect::to('/');
     }
 
-    /**
-     * Show the user's profile information in the sidebar.
-     */
     public function showProfile(): View
     {
         $user = Auth::user();
-        
-        // Menentukan URL profil, jika tidak ada maka menggunakan gambar default
         $profileUrl = $user->profile ?? 'https://via.placeholder.com/40';
-        
-        // Mengirimkan variabel 'user' dan 'profileUrl' ke view sidebar
         return view('user.partials.sidebar', compact('user', 'profileUrl'));
     }
 
-    /**
-     * Display the user's dashboard.
-     */
+    public function editAdmin(Request $request): View
+    {
+        $user = $request->user();
+        $profileUrl = $user->profile ?? 'https://via.placeholder.com/40';
+        return view('admin.profile.edit', compact('user', 'profileUrl'));
+    }
+
+    public function editOrganizer(Request $request): View
+    {
+        $user = $request->user();
+        $profileUrl = $user->profile ?? 'https://via.placeholder.com/40';
+        return view('organizer.profile.edit', compact('user', 'profileUrl'));
+    }
+
     public function dashboard()
     {
-        // Pastikan data user dan profile URL dikirim
         $user = Auth::user();
         $profileUrl = $user->profile ?? 'https://via.placeholder.com/40';
 
-        // Mengirim data ke view dashboard, termasuk data untuk sidebar
-        return view('user.dashboard', compact('user', 'profileUrl'));
+        $recentBookings = Booking::with(['event.location'])
+            ->where('id_user', $user->id)
+            ->latest()
+            ->take(3)
+            ->get();
+
+        $recentFavorites = \App\Models\Favorite::with(['event.category', 'event.location'])
+            ->where('id_user', $user->id)
+            ->latest()
+            ->take(3)
+            ->get();
+
+        $bookingsCount = Booking::where('id_user', $user->id)->count();
+        $favoritesCount = \App\Models\Favorite::where('id_user', $user->id)->count();
+
+        return view('user.dashboard', compact('user', 'profileUrl', 'recentBookings', 'recentFavorites', 'bookingsCount', 'favoritesCount'));
     }
 
-    /**
-     * Display the password change form.
-     */
-    public function showPasswordForm(): View
+    public function showPasswordForm(): RedirectResponse
     {
-        return view('user.partials.update-password-form');
+        $user = Auth::user();
+        if ($user) {
+            if ($user->role === 'admin') {
+                return Redirect::route('admin.profile.edit');
+            } elseif ($user->role === 'organizer') {
+                return Redirect::route('organizer.profile.edit');
+            }
+        }
+        return Redirect::route('user.profile.edit');
     }
 
-    /**
-     * Update the user's password.
-     */
     public function updatePassword(Request $request): RedirectResponse
     {
+        $user = $request->user();
         $request->validate([
             'current_password' => ['required', 'current_password'],
             'password' => ['required', 'confirmed', 'min:8'],
         ]);
 
-        $request->user()->update([
+        $user->update([
             'password' => bcrypt($request->password),
         ]);
+
+        if ($user->role === 'admin') {
+            return Redirect::route('admin.profile.edit')->with('status', 'password-updated');
+        } elseif ($user->role === 'organizer') {
+            return Redirect::route('organizer.profile.edit')->with('status', 'password-updated');
+        }
 
         return Redirect::route('user.profile.edit')->with('status', 'password-updated');
     }
 
     public function bookHistory()
     {
-        // Ambil user yang sedang login
         $user = Auth::user();
-    
-        // Ambil semua pemesanan tiket yang terkait dengan user yang sedang login
-        $bookings = Booking::with(['user', 'event'])
-            ->where('id_user', $user->id) // Filter hanya pemesanan yang dilakukan oleh user yang sedang login
-            ->latest() // Urutkan berdasarkan pemesanan terbaru
-            ->get();
-    
-        return view('user.ticket', compact('bookings'));
-    }    
 
-    /**
-     * Update status pemesanan tiket.
-     */
+        $bookings = Booking::with(['user', 'event'])
+            ->where('id_user', $user->id)
+            ->latest()
+            ->get();
+
+        return view('user.ticket', compact('bookings'));
+    }
+
     public function updateBookingStatus(Request $request, $id)
     {
-        // Validasi input status
         $request->validate([
             'status' => 'required|in:pending,confirmed,cancelled',
         ]);
 
-        // Cari pemesanan berdasarkan ID
         $booking = Booking::findOrFail($id);
-
-        // Perbarui status
         $booking->status = $request->status;
         $booking->save();
 
-        // Redirect dengan pesan sukses
-        return redirect()->route('organizer.manageTickets')->with('success', 'Status pemesanan berhasil diperbarui.');
+        return redirect()->route('organizer.manageTickets')->with('success', 'Booking status updated successfully.');
     }
 }

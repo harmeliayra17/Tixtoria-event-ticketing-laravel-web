@@ -32,21 +32,20 @@ class Event extends Model
         return $this->belongsTo(Location::class, 'location_id');
     }
 
-    // Relasi dengan model Booking
     public function bookings()
     {
-        return $this->hasMany(Booking::class, 'id_event');// Sesuaikan dengan nama model yang tepat
+        return $this->hasMany(Booking::class, 'id_event');
     }
 
     public function decrementQuota($quantity)
     {
         if ($this->quota < $quantity) {
-            throw new \Exception('Kuota tidak cukup');
+            throw new \Exception('Insufficient quota');
         }
         $this->decrement('quota', $quantity);
     }
 
-    // Relasi dengan model Favorite
+
     public function favorites()
     {
         return $this->hasMany(Favorite::class, 'id_event');

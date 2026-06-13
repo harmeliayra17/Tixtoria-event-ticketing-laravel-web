@@ -25,20 +25,17 @@ class PasswordResetLinkController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        // Validasi email dari form reset password
         $request->validate([
             'email' => ['required', 'email'],
         ]);
 
-        // Mengirimkan link reset password ke pengguna yang sesuai
         $status = Password::sendResetLink(
-            $request->only('email') // hanya email yang diminta oleh pengguna
+            $request->only('email')
         );
 
-        // Jika status pengiriman berhasil, kembali dengan pesan sukses
         return $status == Password::RESET_LINK_SENT
-                    ? back()->with('status', __('Password reset link telah dikirim ke email Anda.'))
+                    ? back()->with('status', __('Password reset link has been sent to your email.'))
                     : back()->withInput($request->only('email'))
-                        ->withErrors(['email' => __($status)]); // Jika gagal, tampilkan error
+                        ->withErrors(['email' => __($status)]);
     }
 }

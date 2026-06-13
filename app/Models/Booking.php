@@ -16,6 +16,9 @@ class Booking extends Model
         'total_price',
         'payment_method',
         'status',
+        'payment_proof_path', // added for proof image
+        'sender_account_name',
+        'sender_bank',
     ];
 
     public function user()

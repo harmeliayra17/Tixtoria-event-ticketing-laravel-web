@@ -1,374 +1,426 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ config('app.name', 'Tixtoria') }}</title>
+    <title>{{ $event->title }} - Tixtoria</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="icon" href="{{ asset('images/logo.ico') }}" type="image/x-icon">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Smooth scroll styling */
+        ::-webkit-scrollbar {
+            width: 10px; 
+        }
+        ::-webkit-scrollbar-track {
+            background: #f8fafc;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: #640D5F; 
+            border-radius: 6px; 
+            border: 2px solid #f8fafc; 
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #1B1464; 
+        }
+    </style>
 </head>
-<body class="bg-gray-100">
+
+<body class="bg-slate-50 text-slate-800 antialiased">
 
     <!-- Navbar -->
-    <header class="bg-white shadow-sm sticky top-0 z-50">
-        <div class="mx-auto px-20 lg:px-20 py-4 flex justify-between gap-6 items-center">
-            <img src="{{ asset('images/logo.png') }}" alt="Tixtoria Logo" class="h-8 rounded-md">
-            <nav class="hidden lg:flex space-x-6">
-                <a href="{{ url('/') }}" class="text-[#1B1464] hover:text-[#640D5F] relative inline-block {{ Request::is('/') ? 'text-[#640D5F]' : '' }}" style="position: relative; display: inline-block;">
+    <header class="bg-white/90 backdrop-blur-md border-b border-slate-100 sticky top-0 z-50 transition-all duration-300">
+        <div class="mx-auto px-6 lg:px-20 py-4 flex justify-between gap-6 items-center">
+            <a href="{{ url('/') }}" class="flex items-center">
+                <img src="{{ asset('images/logo.png') }}" alt="Tixtoria Logo" class="h-8 rounded-md">
+            </a>
+            
+            <nav class="hidden lg:flex space-x-8">
+                <a href="{{ url('/') }}" class="text-[#1B1464] hover:text-[#640D5F] text-sm font-medium relative py-1.5 transition {{ Request::is('/') ? 'text-[#640D5F]' : '' }}">
                     Home
-                    <span class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-px bg-[#640D5F] transition-all duration-300 {{ Request::is('/') ? 'w-full rounded-full' : 'w-0' }}"></span>
+                    <span class="absolute bottom-0 left-0 w-full h-0.5 bg-[#640D5F] rounded-full scale-x-0 transition-transform duration-300 origin-left {{ Request::is('/') ? 'scale-x-100' : '' }}"></span>
                 </a>
             
-                <a href="{{ route('eventCatalog') }}" class="text-[#1B1464] hover:text-[#640D5F] relative inline-block {{ Request::is('eventCatalog') ? 'text-[#640D5F]' : '' }}" style="position: relative; display: inline-block;">
+                <a href="{{ route('eventCatalog') }}" class="text-[#1B1464] hover:text-[#640D5F] text-sm font-medium relative py-1.5 transition {{ Request::is('eventCatalog') ? 'text-[#640D5F]' : '' }}">
                     Event Catalog
-                    <span class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-px bg-[#640D5F] transition-all duration-300 {{ Request::is('eventCatalog') ? 'w-full rounded-full' : 'w-0' }}"></span>
+                    <span class="absolute bottom-0 left-0 w-full h-0.5 bg-[#640D5F] rounded-full scale-x-0 transition-transform duration-300 origin-left {{ Request::is('eventCatalog') ? 'scale-x-100' : '' }}"></span>
                 </a>
             
-                <a href="{{ url('/about') }}" class="text-[#1B1464] hover:text-[#640D5F] relative inline-block {{ Request::is('about') ? 'text-[#640D5F]' : '' }}" style="position: relative; display: inline-block;">
+                <a href="{{ url('/about') }}" class="text-[#1B1464] hover:text-[#640D5F] text-sm font-medium relative py-1.5 transition {{ Request::is('about') ? 'text-[#640D5F]' : '' }}">
                     About
-                    <span class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-px bg-[#640D5F] transition-all duration-300 {{ Request::is('about') ? 'w-full rounded-full' : 'w-0' }}"></span>
+                    <span class="absolute bottom-0 left-0 w-full h-0.5 bg-[#640D5F] rounded-full scale-x-0 transition-transform duration-300 origin-left {{ Request::is('about') ? 'scale-x-100' : '' }}"></span>
                 </a>
             
-                <a href="{{ url('/contact') }}" class="text-[#1B1464] hover:text-[#640D5F] relative inline-block {{ Request::is('contact') ? 'text-[#640D5F]' : '' }}" style="position: relative; display: inline-block;">
+                <a href="{{ url('/contact') }}" class="text-[#1B1464] hover:text-[#640D5F] text-sm font-medium relative py-1.5 transition {{ Request::is('contact') ? 'text-[#640D5F]' : '' }}">
                     Contact
-                    <span class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-0 h-px bg-[#640D5F] transition-all duration-300 {{ Request::is('contact') ? 'w-full rounded-full' : 'w-0' }}"></span>
+                    <span class="absolute bottom-0 left-0 w-full h-0.5 bg-[#640D5F] rounded-full scale-x-0 transition-transform duration-300 origin-left {{ Request::is('contact') ? 'scale-x-100' : '' }}"></span>
                 </a>
             </nav>           
+
             @auth
             <div x-data="{ open: false }" class="relative">
-                <!-- Nama Pengguna -->
                 <button @click="open = !open" 
-                        class="text-[#640D5F] px-6 py-2 rounded-lg hidden lg:flex items-center space-x-2 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-[#640D5F]">
+                        class="text-[#640D5F] px-4 py-2 rounded-full hidden lg:flex items-center space-x-2 hover:bg-slate-50 border border-[#640D5F]/20 font-medium text-sm transition focus:outline-none">
                     <span>{{ Auth::user()->name }}</span>
-                    <!-- Ikon Panah -->
-                    <svg xmlns="http://www.w3.org/2000/svg" 
-                         class="w-4 h-4 transition-transform duration-200" 
-                         :class="{'rotate-180': open}" 
-                         fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-                    </svg>
+                    <i data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-200" :class="{'rotate-180': open}"></i>
                 </button>
             
                 <!-- Dropdown -->
                 <div x-show="open" 
                      @click.away="open = false" 
-                     class="absolute right-0 mt-2 w-48 bg-white border border-gray-200 rounded-lg shadow-lg z-10"
+                     class="absolute right-0 mt-2 w-48 bg-white border border-slate-100 rounded-2xl shadow-xl z-50 overflow-hidden"
                      x-transition:enter="transition ease-out duration-200"
                      x-transition:enter-start="opacity-0 transform scale-95"
                      x-transition:enter-end="opacity-100 transform scale-100"
                      x-transition:leave="transition ease-in duration-75"
                      x-transition:leave-start="opacity-100 transform scale-100"
                      x-transition:leave-end="opacity-0 transform scale-95">
-                     <a href="{{ url('/dashboard') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Dashboard</a>
+                     @if(Auth::user()->role === 'admin')
+                         <a href="{{ route('admin.dashboard') }}" class="block px-4 py-2.5 text-sm text-slate-700 hover:bg-[#640D5F]/5 hover:text-[#640D5F]">Dashboard</a>
+                     @elseif(Auth::user()->role === 'organizer')
+                         <a href="{{ route('organizer.dashboard') }}" class="block px-4 py-2.5 text-sm text-slate-700 hover:bg-[#640D5F]/5 hover:text-[#640D5F]">Dashboard</a>
+                     @else
+                         <a href="{{ route('user.dashboard') }}" class="block px-4 py-2.5 text-sm text-slate-700 hover:bg-[#640D5F]/5 hover:text-[#640D5F]">Dashboard</a>
+                     @endif
                     
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-                        <button type="submit" class="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-left">
+                        <button type="submit" class="block w-full px-4 py-2.5 text-sm text-slate-700 hover:bg-[#640D5F]/5 hover:text-[#640D5F] text-left border-t border-slate-50">
                             Log Out
                         </button>
                     </form>
                 </div>
             </div>                       
             @else
-                <!-- Jika belum login, tampilkan tombol Login -->
-                <a href="{{ route('login') }}" class="text-[#640D5F] hover:text-[#1B1464] text-lg hidden lg:block" style="font-size: 16px">
+                <a href="{{ route('login') }}" class="bg-gradient-to-r from-[#640D5F] to-[#1B1464] text-white text-sm font-semibold px-6 py-2.5 rounded-full hover:shadow-lg hover:brightness-110 transition hidden lg:block">
                     Login/Register
-                </a>                
-                </button>
+                </a>
             @endauth              
         </div>
     </header>
 
-    <!-- Main Content -->
-
-    @if(session('success'))
-        <div class="bg-green-500 text-white p-4 rounded mb-4">
-            {{ session('success') }}
-        </div>
-    @endif
-    @if(session('error'))
-        <div class="bg-red-500 text-white p-4 rounded mb-4">
-            {{ session('error') }}
-        </div>
-    @endif
-
-    <main class="py-6">
-        <h1 class="text-3xl font-bold text-gray-800 mb-4 mt-0 px-8">{{ $event->title }}</h1>
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-2 gap-6">
-            <!-- Event Image -->
-            <div class="relative w-full h-[400px] rounded-lg overflow-hidden bg-gray-200">
-                <img 
-                    src="{{ asset($event->image) }}" 
-                    alt="Event Image" 
-                    class="w-full h-full object-cover">
+    <!-- Success / Error Status Alerts -->
+    <div class="container mx-auto px-6 lg:px-20 mt-6">
+        @if(session('success'))
+            <div class="bg-emerald-50 border border-emerald-200 text-emerald-800 p-4 rounded-xl flex items-center gap-3">
+                <i data-lucide="check-circle" class="w-5 h-5 text-emerald-600 flex-shrink-0"></i>
+                <p class="text-sm font-medium">{{ session('success') }}</p>
             </div>
-    
+        @endif
+        @if(session('error'))
+            <div class="bg-rose-50 border border-rose-200 text-rose-800 p-4 rounded-xl flex items-center gap-3">
+                <i data-lucide="alert-circle" class="w-5 h-5 text-rose-600 flex-shrink-0"></i>
+                <p class="text-sm font-medium">{{ session('error') }}</p>
+            </div>
+        @endif
+    </div>
 
-            <div class="bg-white shadow-md rounded-lg p-6 text-gray-800 space-y-6">
-                <!-- Event Category -->
-                <div class="flex items-center space-x-2">
-                    <span class="material-icons text-[#640D5F]">category</span>
-                    <div>
-                        <p class="text-sm text-gray-600 font-semibold">Category</p>
-                        <p class="font-medium">{{ $event->category->name }}</p>
-                    </div>
-                </div>
+    <!-- Main Container -->
+    <main class="container mx-auto px-6 lg:px-20 py-8">
+        <!-- Event Header Info -->
+        <div class="mb-8">
+            <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#640D5F]/10 text-[#640D5F] text-xs font-bold uppercase tracking-wider mb-3">
+                {{ $event->category->name }}
+            </span>
+            <h1 class="text-3xl md:text-4xl font-extrabold text-slate-900 leading-tight">{{ $event->title }}</h1>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             
-                <!-- Location -->
-                <div class="flex items-center space-x-2">
-                    <span class="material-icons text-[#640D5F]">location_on</span>
-                    <div>
-                        <p class="text-sm text-gray-600 font-semibold">Location</p>
-                        <p class="font-medium">{{ $event->location->location_name }}, {{ $event->location->city }}, {{ $event->location->province }}</p>
-                    </div>
+            <!-- Left Column: Media & Description -->
+            <div class="lg:col-span-2 space-y-8">
+                <!-- Large Event Image -->
+                <div class="relative w-full aspect-[16/9] rounded-2xl overflow-hidden shadow-md bg-slate-100">
+                    <img 
+                        src="{{ Str::startsWith($event->image, ['http://', 'https://']) ? $event->image : ($event->image ? asset($event->image) : 'https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=800&auto=format&fit=crop&q=80') }}" 
+                        alt="{{ $event->title }}" 
+                        class="w-full h-full object-cover">
                 </div>
-            
-                <!-- Date and Time -->
-                <div class="grid grid-cols-2 gap-4">
-                    <!-- Date -->
-                    <div class="flex items-center space-x-2">
-                        <span class="material-icons text-[#640D5F]">event</span>
-                        <div>
-                            <p class="text-sm text-gray-600 font-semibold">Date</p>
-                            <p class="font-medium">{{ date('d M Y', strtotime($event->date)) }}</p>
+
+                <!-- Event Details Grid -->
+                <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Location Detail -->
+                    <div class="flex items-start gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-[#640D5F]/5 flex items-center justify-center flex-shrink-0">
+                            <i data-lucide="map-pin" class="w-5 h-5 text-[#640D5F]"></i>
                         </div>
-                    </div>
-            
-                    <!-- Time -->
-                    <div class="flex items-center space-x-2">
-                        <span class="material-icons text-[#640D5F]">schedule</span>
                         <div>
-                            <p class="text-sm text-gray-600 font-semibold">Time</p>
-                            <p class="font-medium">{{ date('H:i', strtotime($event->time)) }}</p>
-                        </div>
-                    </div>
-                </div>
-            
-                <!-- Price -->
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="flex items-center space-x-2">
-                        <span class="material-icons text-[#640D5F]">attach_money</span>
-                        <div>
-                            <p class="text-sm text-gray-600 font-semibold">Price</p>
-                            <p class="font-bold text-[#640D5F] text-lg">
-                                @if ($event->price > 0)
-                                    Rp{{ number_format($event->price, 0, ',', '.') }}
-                                @else
-                                    Free
-                                @endif
+                            <h4 class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Location</h4>
+                            <p class="text-sm font-semibold text-slate-800 mt-1 leading-snug">
+                                {{ $event->location->location_name }}
                             </p>
+                            <p class="text-xs text-slate-500 mt-0.5">{{ $event->location->city }}, {{ $event->location->province }}</p>
                         </div>
                     </div>
-                
-                    <!-- Quota -->
-                    <div class="flex items-center space-x-2">
-                        <span class="material-icons text-[#640D5F]">people</span>
-                        <div>
-                            <p class="text-sm text-gray-600 font-semibold">Quota</p>
-                            <p class="font-medium">{{ $event->quota }} participants</p>
-                        </div>
-                    </div>
-                </div>   
-                
-                <!-- Reserve Button -->
-                <div class="mt-6 w-full flex items-center grid grid-cols-2 justify-center space-x-0">
-                    @auth
-                    <form action="{{ route('favorites.store') }}" method="POST">
-                        @csrf
-                        <input type="hidden" name="event_id" value="{{ $event->id }}">
-                        <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-                        <button 
-                            type="submit" 
-                            class="bg-[#640D5F] text-white py-3 px-4 rounded-lg hover:scale-105 transition-shadow duration-300">
-                            <span class="material-icons text-white mr-2">favorite</span>
-                            Add to Favorites
-                        </button>
-                    </form>
-                        <!-- Jika pengguna sudah login, buka modal -->
-                        <button 
-                            onclick="openReservationModal()" 
-                            class="mt-0 w-full flex items-center justify-center bg-gradient-to-r from-[#640D5F] to-[#1B1464] text-[#FFFFFF] py-3 px-4 rounded-lg hover:scale-105 transition duration-300">
-                            <span class="material-icons text-white mr-2">event_available</span>
-                            Reserve Now
-                        </button>
-                    @endauth
 
-                    @guest
-                        <!-- Jika pengguna belum login, arahkan ke halaman login -->
-                        <a 
-                            href="{{ route('login') }}" 
-                            class="mt-6 w-full flex items-center justify-center bg-gradient-to-r from-gray-600 to-gray-800 text-white py-3 px-4 rounded-lg hover:shadow-lg transition-shadow duration-300">
-                            <span class="material-icons text-white mr-2">login</span>
-                            Login to Reserve
-                        </a>
-                    @endguest
+                    <!-- Date & Time Detail -->
+                    <div class="flex items-start gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-[#640D5F]/5 flex items-center justify-center flex-shrink-0">
+                            <i data-lucide="calendar" class="w-5 h-5 text-[#640D5F]"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Date & Time</h4>
+                            <p class="text-sm font-semibold text-slate-800 mt-1 leading-snug">
+                                {{ date('D, d M Y', strtotime($event->date)) }}
+                            </p>
+                            <p class="text-xs text-slate-500 mt-0.5">{{ date('H:i', strtotime($event->time)) }} WIB</p>
+                        </div>
+                    </div>
+
+                    <!-- Quota/Capacity Detail -->
+                    <div class="flex items-start gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-[#640D5F]/5 flex items-center justify-center flex-shrink-0">
+                            <i data-lucide="users" class="w-5 h-5 text-[#640D5F]"></i>
+                        </div>
+                        <div>
+                            <h4 class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Quota Available</h4>
+                            <p class="text-sm font-semibold text-slate-800 mt-1 leading-snug">
+                                {{ $event->quota }} Tickets left
+                            </p>
+                            <p class="text-xs text-slate-500 mt-0.5">Secure yours before it closes</p>
+                        </div>
+                    </div>
                 </div>
-            </div>  
-        </div>
-            <!-- Event Desc -->
-            <div class="bg-white shadow-lg rounded-lg p-6 ml-8 mr-8 mt-8">
-                <p class="text-2xl mb-2 text-gray-600 font-semibold">Event Description</p>
-                <p class="text-gray-600 mb-4">{!! nl2br(e($event->description)) !!}</p>
+
+                <!-- Event Rich Description -->
+                <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-6 md:p-8">
+                    <h3 class="text-xl font-bold text-[#1B1464] border-b border-slate-50 pb-4 mb-4">Event Description</h3>
+                    <div class="text-sm text-slate-600 leading-relaxed space-y-4">
+                        {!! nl2br(e($event->description)) !!}
+                    </div>
+                </div>
             </div>
 
-
-        <!-- Reservation Modal -->
-        <div id="reservation-modal" class="hidden fixed inset-0 bg-gray-900 bg-opacity-75 flex justify-center items-center">
-            <div class="bg-white rounded-lg shadow-lg p-6 w-1/2">
-                <h2 class="text-2xl font-bold mb-4 text-[#640D5F]">Reserve Your Ticket</h2>
-                <div class="mt-4">
-                    <p class="text-gray-600">Price:</p>
-                    <p id="ticket-price" class="text-[#640D5F] font-bold">
-                        @if ($event->price > 0)
-                            {{ 'Rp ' . number_format($event->price, 0, ',', '.') }}
-                        @else
-                            Free
-                        @endif
-                    </p>
-                </div>
-                
-                <div class="mt-4">
-                    <p class="text-gray-600">Total:</p>
-                    <p id="total-price" class="text-[#640D5F] font-bold">
-                        @if ($event->price > 0)
-                            {{ 'Rp ' . number_format($event->price, 0, ',', '.') }}
-                        @else
-                            Free
-                        @endif
-                    </p>
-                </div>
-
-                <p class="text-gray-600 font-medium">Quantity:</p>
-                <div class="flex items-center space-x-2">
-                    <button 
-                        onclick="updateQuantity(-1)" 
-                        class="bg-white text-[#640D5F] px-3 py-1 rounded-lg hover:bg-gray-100 transition">
-                        -
-                    </button>
-                    <span id="ticket-quantity" class="text-[#640D5F] text-lg font-semibold">1</span>
-                    <button 
-                        onclick="updateQuantity(1)" 
-                        class="bg-white text-[#640D5F] px-3 py-1 rounded-lg hover:bg-gray-100 transition">
-                        +
-                    </button>
-                </div>
-
-                <form action="{{ route('book.store', $event->id) }}" method="POST">
-                    @csrf
-                    <div class="grid grid-cols-1 sm:grid-cols-1 gap-4">
-                        <div>
- 
-                            <input type="hidden" id="quantity" name="quantity" value="1" required>
-                        </div>
-                        <div>
-                            <label for="payment-method" class="block text-gray-600 font-semibold mb-2">Payment Method</label>
-                            <select id="payment-method" name="payment_method" class="w-full border border-gray-300 rounded-lg p-2">
-                                <option value="bank_transfer">Bank Transfer</option>
-                                <option value="credit_card">Credit Card</option>
-                                <option value="paypal">PayPal</option>
-                            </select>
-                        </div>
+            <!-- Right Column: Sticky Booking / Checkout Card -->
+            <div class="lg:col-span-1">
+                <div class="sticky top-24 bg-white border border-slate-100 rounded-2xl shadow-xl p-6 space-y-6">
+                    <div>
+                        <span class="text-xs text-slate-400 uppercase font-semibold tracking-wider">Ticket Price</span>
+                        <h2 class="text-2xl font-extrabold text-[#640D5F] mt-1" id="display-price">
+                            @if ($event->price > 0)
+                                Rp{{ number_format($event->price, 0, ',', '.') }}
+                            @else
+                                Free
+                            @endif
+                        </h2>
                     </div>
-                    <button type="submit" class="mt-6 bg-[#640D5F] text-white py-2 px-4 rounded-lg hover:bg-[#1B1464]">
-                        Checkout
-                    </button>
-                    <button 
-                        type="button"
-                        class="mt-4 bg-gray-500 text-white py-2 px-4 rounded-lg hover:bg-gray-600"
-                        onclick="closeReservationModal()">Close</button>
-                </form>
+
+                    <div class="border-t border-slate-100 pt-6">
+                        @auth
+                            <!-- Booking Form -->
+                            <form action="{{ route('book.store', $event->id) }}" method="POST" class="space-y-4">
+                                @csrf
+                                <input type="hidden" id="quantity" name="quantity" value="1" required>
+
+                                <!-- Quantity Selector -->
+                                <div class="flex items-center justify-between bg-slate-50 p-3.5 rounded-xl border border-slate-200/50">
+                                    <span class="text-sm font-semibold text-slate-700">Quantity</span>
+                                    <div class="flex items-center gap-3">
+                                        <button 
+                                            type="button"
+                                            onclick="updateQuantity(-1)" 
+                                            class="w-8 h-8 rounded-full bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 font-bold flex items-center justify-center transition focus:outline-none">
+                                            -
+                                        </button>
+                                        <span id="ticket-quantity" class="text-[#640D5F] font-bold text-base w-6 text-center">1</span>
+                                        <button 
+                                            type="button"
+                                            onclick="updateQuantity(1)" 
+                                            class="w-8 h-8 rounded-full bg-white border border-slate-200 text-slate-700 hover:bg-slate-100 font-bold flex items-center justify-center transition focus:outline-none">
+                                            +
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- User Billing Information -->
+                                <div class="space-y-3">
+                                    <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Billing Contact</h4>
+                                    <div>
+                                        <input type="text" value="{{ Auth::user()->name }}" class="w-full h-11 bg-slate-50 border border-slate-200 rounded-xl px-4 text-xs text-slate-500 font-medium" readonly>
+                                    </div>
+                                    <div>
+                                        <input type="email" value="{{ Auth::user()->email }}" class="w-full h-11 bg-slate-50 border border-slate-200 rounded-xl px-4 text-xs text-slate-500 font-medium" readonly>
+                                    </div>
+                                    <div>
+                                        <input type="tel" name="phone" placeholder="Phone Number (e.g. +62 812 3456)" class="w-full h-11 bg-white border border-slate-200 rounded-xl px-4 text-xs text-slate-700 focus:outline-none focus:border-[#640D5F] focus:ring-1 focus:ring-[#640D5F]" required>
+                                    </div>
+                                </div>
+
+                                <!-- Payment Selector -->
+                                <div class="space-y-3">
+                                    <label for="payment-method" class="block text-xs font-bold text-slate-400 uppercase tracking-wider">Payment Method</label>
+                                    <div class="relative">
+                                        <select id="payment-method" name="payment_method" class="w-full h-11 bg-white border border-slate-200 rounded-xl px-4 text-xs focus:outline-none focus:border-[#640D5F] focus:ring-1 focus:ring-[#640D5F] appearance-none cursor-pointer" onchange="togglePaymentFields(this.value)">
+                                            <option value="bank_transfer">Bank Transfer</option>
+                                            <option value="credit_card">Credit Card</option>
+                                            <option value="paypal">PayPal</option>
+                                        </select>
+                                        <div class="absolute right-4 top-1/2 transform -translate-y-1/2 pointer-events-none text-slate-500">
+                                            <i data-lucide="chevron-down" class="w-4 h-4"></i>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Dynamic payment method sections -->
+                                <!-- Bank Transfer -->
+                                <div id="payment-bank_transfer" class="payment-details-panel space-y-3 bg-slate-50/50 p-4 rounded-xl border border-slate-200/40">
+                                    <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider">Select Target Bank</label>
+                                    <select name="sender_bank" class="w-full h-10 bg-white border border-slate-200 rounded-xl px-3 text-xs focus:outline-none focus:border-[#640D5F]">
+                                        <option value="BCA">Bank BCA (Account: 8830129381)</option>
+                                        <option value="Mandiri">Bank Mandiri (Account: 112009381223)</option>
+                                        <option value="BNI">Bank BNI (Account: 0293812838)</option>
+                                        <option value="BRI">Bank BRI (Account: 00192838183)</option>
+                                    </select>
+                                    <input type="text" name="sender_account_name" placeholder="Sender Account Name" class="w-full h-10 bg-white border border-slate-200 rounded-xl px-3 text-xs focus:outline-none focus:border-[#640D5F]" required>
+                                    <p class="text-[10px] text-slate-400 leading-normal">Transfer total amount to the selected bank account and enter your sender account name for verification.</p>
+                                </div>
+
+                                <!-- Credit Card -->
+                                <div id="payment-credit_card" class="payment-details-panel space-y-3 bg-slate-50/50 p-4 rounded-xl border border-slate-200/40 hidden">
+                                    <input type="text" placeholder="Card Number (16 digits)" maxlength="16" class="w-full h-10 bg-white border border-slate-200 rounded-xl px-3 text-xs focus:outline-none focus:border-[#640D5F]">
+                                    <div class="grid grid-cols-2 gap-3">
+                                        <input type="text" placeholder="MM/YY" maxlength="5" class="w-full h-10 bg-white border border-slate-200 rounded-xl px-3 text-xs focus:outline-none focus:border-[#640D5F]">
+                                        <input type="text" placeholder="CVV" maxlength="3" class="w-full h-10 bg-white border border-slate-200 rounded-xl px-3 text-xs focus:outline-none focus:border-[#640D5F]">
+                                    </div>
+                                    <input type="text" placeholder="Cardholder Name" class="w-full h-10 bg-white border border-slate-200 rounded-xl px-3 text-xs focus:outline-none focus:border-[#640D5F]">
+                                </div>
+
+                                <!-- PayPal -->
+                                <div id="payment-paypal" class="payment-details-panel space-y-3 bg-slate-50/50 p-4 rounded-xl border border-slate-200/40 hidden">
+                                    <input type="email" placeholder="PayPal Email Address" class="w-full h-10 bg-white border border-slate-200 rounded-xl px-3 text-xs focus:outline-none focus:border-[#640D5F]">
+                                    <p class="text-[10px] text-slate-400 leading-normal">You will be redirected to PayPal authorization upon clicking confirm.</p>
+                                </div>
+
+                                <!-- Total Pricing Row -->
+                                <div class="flex justify-between items-center py-2.5 border-t border-slate-50 mt-4">
+                                    <span class="text-sm font-semibold text-slate-500">Total Price</span>
+                                    <span id="total-price" class="text-lg font-extrabold text-[#640D5F]">
+                                        @if ($event->price > 0)
+                                            Rp{{ number_format($event->price, 0, ',', '.') }}
+                                        @else
+                                            Free
+                                        @endif
+                                    </span>
+                                </div>
+
+                                <!-- Action Buttons -->
+                                <div class="grid grid-cols-1 gap-2 pt-2">
+                                    <button 
+                                        type="submit" 
+                                        class="w-full bg-gradient-to-r from-[#640D5F] to-[#1B1464] text-white py-3 px-4 rounded-xl font-bold hover:brightness-110 shadow-lg active:scale-98 transition duration-200 flex items-center justify-center gap-2">
+                                        <i data-lucide="check-circle" class="w-4 h-4"></i>
+                                        <span>Confirm Reservation</span>
+                                    </button>
+                                </div>
+                            </form>
+
+                            <!-- Add to Favorites Form -->
+                            <form action="{{ route('favorites.store') }}" method="POST" class="pt-2">
+                                @csrf
+                                <input type="hidden" name="event_id" value="{{ $event->id }}">
+                                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                                <button 
+                                    type="submit" 
+                                    class="w-full bg-slate-50 border border-slate-200 text-slate-600 hover:text-rose-600 hover:bg-rose-50/30 hover:border-rose-200 py-2.5 px-4 rounded-xl font-medium transition duration-200 flex items-center justify-center gap-2">
+                                    <i data-lucide="heart" class="w-4 h-4"></i>
+                                    <span>Save to Favorites</span>
+                                </button>
+                            </form>
+                        @else
+                            <!-- Guest CTA Button -->
+                            <div class="space-y-4">
+                                <p class="text-xs text-slate-500 text-center leading-relaxed">Login to reserve your spots and access complete ticketing history.</p>
+                                <a 
+                                    href="{{ route('login') }}" 
+                                    class="w-full bg-slate-800 text-white py-3 px-4 rounded-xl font-bold hover:bg-slate-900 active:scale-98 transition duration-200 flex items-center justify-center gap-2">
+                                    <i data-lucide="log-in" class="w-4 h-4"></i>
+                                    <span>Login to Reserve</span>
+                                </a>
+                            </div>
+                        @endauth
+                    </div>
+                </div>
             </div>
         </div>
     </main>
+
     <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-12">
-        <div class="container mx-auto px-6 lg:px-20 flex justify-between flex-wrap">
-            <div class="w-full lg:w-1/3 mb-6 lg:mb-0">
-                <img src="{{ asset('images/logo-wht.png') }}" alt="Tixtoria Logo" class="h-8 rounded-md">
-                <p class="mt-2 text-gray-400">A global self-service ticketing platform for live experiences.</p>
+    <footer class="bg-slate-900 text-slate-400 py-12 mt-20">
+        <div class="container mx-auto px-6 lg:px-20 flex justify-between flex-wrap gap-8">
+            <div class="w-full lg:w-1/3">
+                <img src="{{ asset('images/logo-wht.png') }}" alt="Tixtoria Logo" class="h-8 rounded-md mb-4">
+                <p class="text-sm">A global self-service ticketing platform for premium live experiences.</p>
             </div>
-            <div class="w-full lg:w-1/3 mb-6 lg:mb-0">
-                <h3 class="text-lg font-bold">Plan Events</h3>
-                <ul class="text-gray-400 space-y-2 mt-2">
-                    <li><a href="#" class="hover:underline">Create and Set Up</a></li>
-                    <li><a href="#" class="hover:underline">Sell Tickets</a></li>
-                    <li><a href="#" class="hover:underline">Online RSVP</a></li>
+            <div class="w-full lg:w-1/4">
+                <h3 class="text-white text-base font-bold mb-4">Plan Events</h3>
+                <ul class="space-y-2.5 text-sm">
+                    <li><a href="#" class="hover:text-white transition">Create and Set Up</a></li>
+                    <li><a href="#" class="hover:text-white transition">Sell Tickets</a></li>
+                    <li><a href="#" class="hover:text-white transition">Online RSVP</a></li>
                 </ul>
             </div>
             <div class="w-full lg:w-1/3">
-                <h3 class="text-lg font-bold">Stay In The Loop</h3>
-                <div class="mt-4">
-                    <input type="email" placeholder="Enter your email address" class="px-4 py-2 rounded-lg w-full">
-                    <button class="bg-[#640D5F] text-white px-6 py-2 rounded-lg mt-4 block w-full">Subscribe Now</button>
+                <h3 class="text-white text-base font-bold mb-4">Stay In The Loop</h3>
+                <div class="flex gap-2">
+                    <input type="email" placeholder="Enter your email address" class="px-4 py-2.5 rounded-xl bg-slate-800 border border-slate-700 text-white placeholder-slate-500 focus:outline-none focus:ring-1 focus:ring-[#640D5F] w-full text-sm">
+                    <button class="bg-[#640D5F] text-white px-6 py-2.5 rounded-xl text-sm font-semibold hover:brightness-110 transition flex-shrink-0">Subscribe</button>
                 </div>
             </div>
         </div>
-        <div class="text-center mt-8 text-gray-400">Copyright © 2023 Tixtoria. All rights reserved.</div>
+        <div class="border-t border-slate-800 mt-10 pt-6 text-center text-xs">Copyright © 2026 Tixtoria. All rights reserved.</div>
     </footer>
 
     <!-- JavaScript -->
     <script>
         let ticketQuantity = 1;
-    
-        // Function to open the reservation modal
-        function openReservationModal() {
-            const modal = document.getElementById('reservation-modal');
-            if (modal) {
-                modal.classList.remove('hidden');
-            }
-        }
-    
-        // Function to close the reservation modal
-        function closeReservationModal() {
-            const modal = document.getElementById('reservation-modal');
-            if (modal) {
-                modal.classList.add('hidden');
-            }
-        }
-    
+        const pricePerUnit = {{ $event->price }};
+
         // Function to update the ticket quantity and total price
         function updateQuantity(change) {
-        ticketQuantity += change;
-        if (ticketQuantity < 1) ticketQuantity = 1; // Kuantitas minimal 1
-        
-        const ticketPriceElement = document.getElementById('ticket-price');
-        const ticketPriceText = ticketPriceElement.innerText;
-        
-        let ticketPrice = ticketPriceText !== 'Free' 
-            ? parseFloat(ticketPriceText.replace(/[^\d]/g, '')) 
-            : 0;
+            ticketQuantity += change;
+            if (ticketQuantity < 1) ticketQuantity = 1;
 
-        const quantityElement = document.getElementById('ticket-quantity');
-        const totalPriceElement = document.getElementById('total-price');
-        if (quantityElement) quantityElement.innerText = ticketQuantity;
-        if (totalPriceElement) totalPriceElement.innerText = ticketPrice > 0 
-            ? formatRupiah(ticketPrice * ticketQuantity)
-            : 'Free';
-    }
-
-
-    
-        // Update the quantity display and total price
-        const quantityElement = document.getElementById('ticket-quantity');
-        const totalPriceElement = document.getElementById('total-price');
-        if (quantityElement) {
-            quantityElement.innerText = ticketQuantity;
-        }
-        if (totalPriceElement) {
-            totalPriceElement.innerText = ticketPrice > 0
-                ? formatRupiah(ticketPrice * ticketQuantity)
-                : 'Free'; // Show "Free" if ticket price is 0
+            const quantityElement = document.getElementById('ticket-quantity');
+            const hiddenQuantityInput = document.getElementById('quantity');
+            const totalPriceElement = document.getElementById('total-price');
+            
+            if (quantityElement) quantityElement.innerText = ticketQuantity;
+            if (hiddenQuantityInput) hiddenQuantityInput.value = ticketQuantity;
+            
+            if (totalPriceElement) {
+                if (pricePerUnit > 0) {
+                    totalPriceElement.innerText = formatRupiah(pricePerUnit * ticketQuantity);
+                } else {
+                    totalPriceElement.innerText = 'Free';
+                }
+            }
         }
         
         // Function to format numbers to Rupiah currency format
         function formatRupiah(amount) {
-            return 'Rp ' + amount.toLocaleString('id-ID', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+            return 'Rp' + amount.toLocaleString('id-ID', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
         }
+
+        // Toggle payment details panel based on selected method
+        function togglePaymentFields(value) {
+            document.querySelectorAll('.payment-details-panel').forEach(panel => {
+                panel.classList.add('hidden');
+            });
+            const selectedPanel = document.getElementById('payment-' + value);
+            if (selectedPanel) {
+                selectedPanel.classList.remove('hidden');
+            }
+        }
+        
+        lucide.createIcons();
     </script>
-    
-          
 </body>
+
 </html>

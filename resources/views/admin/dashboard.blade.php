@@ -1,54 +1,84 @@
 @extends('admin.partials.sidebar')
 
-@section('title', 'Dashboard')
+@section('title', 'Admin Dashboard')
 
 @section('content')
-<div class="container mx-auto px-0">
-    <!-- KPI Cards -->
-    <div class="grid grid-cols-3 gap-4 mt-2">
+<div class="space-y-6 pb-12">
+    <!-- Header -->
+    <div class="bg-white border border-slate-100 rounded-2xl p-4 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-[#1B1464]/5 text-[#1B1464] flex items-center justify-center flex-shrink-0">
+                <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
+            </div>
+            <p class="text-xs text-slate-500">Global statistics, ticketing counts, event distributions, and system overview.</p>
+        </div>
+        <div class="flex items-center gap-1.5 text-xs font-semibold text-slate-400 bg-slate-50 border border-slate-200/60 rounded-xl px-4 py-2">
+            <i data-lucide="calendar" class="w-3.5 h-3.5 text-slate-400"></i>
+            <span>{{ now()->format('l, d F Y') }}</span>
+        </div>
+    </div>
 
+    <!-- KPI Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <!-- Card 1: Total Sales -->
-        <div class="bg-gradient-to-r from-[#640D5F] to-[#1B1464] shadow p-6 rounded-lg flex flex-col justify-between items-center">
-            <span class="material-icons text-4xl mb-2 text-white">attach_money</span>
-            <h3 class="text-lg font-semibold text-white">Total Sales</h3>
-            <p class="text-2xl font-bold text-white mt-2">Rp {{ number_format($totalSales, 0, ',', '.') }}</p>
+        <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm flex items-center justify-between">
+            <div>
+                <span class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Total Sales</span>
+                <h3 class="text-2xl font-extrabold text-[#640D5F] mt-2">Rp{{ number_format($totalSales, 0, ',', '.') }}</h3>
+            </div>
+            <div class="w-12 h-12 rounded-2xl bg-[#640D5F]/5 flex items-center justify-center">
+                <i data-lucide="dollar-sign" class="w-6 h-6 text-[#640D5F]"></i>
+            </div>
         </div>
     
         <!-- Card 2: Tickets Sold -->
-        <div class="bg-gradient-to-r from-[#640D5F] to-[#1B1464] shadow p-6 rounded-lg flex flex-col justify-between items-center">
-            <span class="material-icons text-4xl mb-2 text-white">confirmation_number</span>
-            <h3 class="text-lg font-semibold text-white">Tickets Sold</h3>
-            <p class="text-2xl font-bold text-white mt-2">{{ $totalTicketsSold }}</p>
+        <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm flex items-center justify-between">
+            <div>
+                <span class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Tickets Sold</span>
+                <h3 class="text-3xl font-extrabold text-[#1B1464] mt-2">{{ $totalTicketsSold }}</h3>
+            </div>
+            <div class="w-12 h-12 rounded-2xl bg-[#640D5F]/5 flex items-center justify-center">
+                <i data-lucide="ticket" class="w-6 h-6 text-[#1B1464]"></i>
+            </div>
         </div>
     
         <!-- Card 3: Total Events -->
-        <div class="bg-gradient-to-r from-[#640D5F] to-[#1B1464] shadow p-6 rounded-lg flex flex-col justify-between items-center">
-            <span class="material-icons text-4xl mb-2 text-white">event</span>
-            <h3 class="text-lg font-semibold text-white">Total Events</h3>
-            <p class="text-2xl font-bold text-white mt-2">{{ $totalEvents }}</p>
+        <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm flex items-center justify-between">
+            <div>
+                <span class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Total Events</span>
+                <h3 class="text-3xl font-extrabold text-[#1B1464] mt-2">{{ $totalEvents }}</h3>
+            </div>
+            <div class="w-12 h-12 rounded-2xl bg-[#640D5F]/5 flex items-center justify-center">
+                <i data-lucide="calendar" class="w-6 h-6 text-[#1B1464]"></i>
+            </div>
         </div>
-    
     </div>
   
+    <!-- Charts Section -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Line Chart: Tickets Sold Per Day -->
+        <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-5 flex flex-col justify-between">
+            <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Tickets Sold Per Day</h3>
+            <div class="h-56 relative w-full">
+                <canvas id="ticketsPerDayChart"></canvas>
+            </div>
+        </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-6">
-      <!-- Line Chart: Tickets Sold Per Day -->
-      <div class="mt-8 bg-white shadow rounded-lg p-6">
-          <h3 class="text-lg font-semibold text-gray-700">Tickets Sold Per Day</h3>
-          <canvas id="ticketsPerDayChart" class="w-full h-64"></canvas>
-      </div>
+        <!-- Donut Chart: Sales by Event -->
+        <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-5 flex flex-col justify-between">
+            <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Ticket Sales by Event</h3>
+            <div class="h-56 relative w-full">
+                <canvas id="ticketSalesByEventChart"></canvas>
+            </div>
+        </div>
 
-      <!-- Donut Chart: Sales by Event -->
-      <div class="mt-8 bg-white shadow rounded-lg p-6">
-          <h3 class="text-lg font-semibold text-gray-700">Ticket Sales by Event</h3>
-          <canvas id="ticketSalesByEventChart" class="w-full h-64"></canvas>
-      </div>
-
-      <!-- Bar Chart: Sales vs Tickets Sold -->
-      <div class="mt-8 bg-white shadow rounded-lg p-6">
-          <h3 class="text-lg font-semibold text-gray-700">Sales vs Tickets Sold</h3>
-          <canvas id="salesVsTicketsChart" class="w-full h-64"></canvas>
-      </div>
+        <!-- Bar Chart: Sales vs Tickets Sold -->
+        <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-5 flex flex-col justify-between">
+            <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Sales vs Tickets Sold</h3>
+            <div class="h-56 relative w-full">
+                <canvas id="salesVsTicketsChart"></canvas>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -63,14 +93,16 @@
                 label: 'Tickets Sold',
                 data: {!! json_encode($ticketsSold) !!},
                 borderColor: '#640D5F',
-                fill: false,
-                tension: 0.1
+                backgroundColor: 'rgba(100, 13, 95, 0.05)',
+                fill: true,
+                tension: 0.3
             }]
         },
         options: {
             responsive: true,
+            maintainAspectRatio: false,
             plugins: { legend: { display: false } },
-            scales: { x: { title: { text: 'Date', display: true } }, y: { beginAtZero: true } }
+            scales: { x: { grid: { display: false } }, y: { beginAtZero: true } }
         }
     });
 
@@ -78,7 +110,7 @@
     const ticketSalesByEventChart = new Chart(document.getElementById('ticketSalesByEventChart'), {
       type: 'doughnut',
       data: {
-          labels: {!! json_encode($eventSales->keys()) !!}, // Tetap disertakan dalam data, tapi tidak ditampilkan
+          labels: {!! json_encode($eventSales->keys()) !!},
           datasets: [{
               data: {!! json_encode($eventSales->values()) !!},
               backgroundColor: ['#640D5F', '#1B1464', '#FFC107', '#4CAF50']
@@ -86,8 +118,9 @@
       },
       options: {
           responsive: true,
+          maintainAspectRatio: false,
           plugins: {
-              legend: { display: false } // Menyembunyikan legenda
+              legend: { position: 'bottom' }
           }
       }
   });
@@ -101,19 +134,22 @@
                 {
                     label: 'Sales (Rp)',
                     data: {!! json_encode($eventSales->values()) !!},
-                    backgroundColor: '#640D5F'
+                    backgroundColor: '#640D5F',
+                    borderRadius: 6
                 },
                 {
                     label: 'Tickets Sold',
                     data: {!! json_encode($ticketsSold) !!},
-                    backgroundColor: '#1B1464'
+                    backgroundColor: '#1B1464',
+                    borderRadius: 6
                 }
             ]
         },
         options: {
             responsive: true,
+            maintainAspectRatio: false,
             plugins: { legend: { position: 'top' } },
-            scales: { x: { beginAtZero: true }, y: { beginAtZero: true } }
+            scales: { x: { grid: { display: false } }, y: { beginAtZero: true } }
         }
     });
 </script>

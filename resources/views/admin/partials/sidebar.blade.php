@@ -5,13 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.2/dist/alpine.min.js" defer></script>
   <title>{{ config('app.name', 'Tixtoria') }}</title>
-  <link rel="icon" href="{{ asset('images/logo.ico') }}" type="image/x-icon">
+  <link class="rounded-md" rel="icon" href="{{ asset('images/logo.ico') }}" type="image/x-icon">
 
   <style>
     .sidebar-bg {
-      background: linear-gradient(to right, #640D5F, #1B1464);
+      background: linear-gradient(to bottom, #640D5F, #1B1464);
       mix-blend-mode: normal;
     }
     aside {
@@ -22,13 +23,12 @@
     }
     .navbar {
       position: fixed;
-      overflow-x: auto;
     }
     .wrapper {
       margin-left: 215px; 
       height: 100vh;
       overflow-y: auto;
-      width: 100%;
+      width: calc(100% - 215px);
     }
     body {
       font-family: 'Poppins', sans-serif;
@@ -37,151 +37,170 @@
     .active {
       background-color: white;
       color: #1B1464;
-      font-weight: ;
+      font-weight: 600;
       border-radius: 0.5rem;
     }
-    .search-bar {
-      margin-left: 280px;
-    }
-    .relative input {
-      padding-right: 2.5rem;
-      width: 400px; 
-    }
-    .relative .material-icons {
-      position: absolute;
-      top: 50%;
-      right: 0.75rem;
-      transform: translateY(-50%);
-    }
-    nav ul li {
-      margin-bottom: 1rem;
-    }
-    h1 {
-      color: #1B1464;
-    }
-    div {
-      font-size: 14px;
-    }
     ::-webkit-scrollbar {
-      width: 12px; 
+      width: 8px; 
     }
     ::-webkit-scrollbar-track {
       background: #f1f1f1;
     }
     ::-webkit-scrollbar-thumb {
       background-color: #640D5F; 
-      border-radius: 6px; 
-      border: 3px solid #f1f1f1; 
-    }
-    ::-webkit-scrollbar-thumb:hover {
-      background: #640D5F; 
+      border-radius: 4px; 
     }
   </style>
 </head>
-<body class="flex bg-gray-100 h-screen">
+<body class="flex bg-slate-50 h-screen overflow-hidden">
 
   <!-- Sidebar -->
-  <aside class="sidebar-bg w-[215px] h-full text-white flex flex-col">
-    <div class="p-6 flex items-center">
+  <aside class="sidebar-bg w-[215px] h-full text-white flex flex-col z-40 shadow-xl">
+    <div class="p-6 flex items-center border-b border-white/10">
       <img src="{{ asset('images/logo-wht.png') }}" alt="Tixtoria Logo" class="h-8 rounded-md">
     </div>
-    <nav class="flex-1 px-4 mt-1">
-      <ul class="space-y-1">
-        <ul>
-          <li>
-            <a href="{{ route('admin.dashboard') }}" class="flex items-center px-3 py-2 hover:bg-white hover:text-gray-900 rounded-lg transition" onclick="updateTitle('Dashboard', this)">
-                <span class="material-icons text-lg mr-3">dashboard</span>
-                Dashboard
-            </a>
-          </li>
-          <li>
-            <a href="{{ route('admin.manageUsers') }}" class="menu-item flex items-center px-3 py-2 hover:bg-white hover:text-gray-900 rounded-lg transition" onclick="updateTitle('Manage Users', this)">
-                <span class="material-icons text-lg mr-3">group</span>
-                Manage Users
-            </a>
-          </li>
-          <li>
-            <a href="{{ route('admin.manageEvents') }}" class="flex items-center px-3 py-2 hover:bg-white hover:text-gray-900 rounded-lg transition" onclick="updateTitle('Manage Events', this)">
-                <span class="material-icons text-lg mr-3">event</span>
-                Manage Events
-            </a>
-          </li>
-          <li>
-            <a href="{{ route('admin.manageTickets') }}" class="flex items-center px-3 py-2 hover:bg-white hover:text-gray-900 rounded-lg transition" onclick="updateTitle('Manage Tickets', this)">
-                <span class="material-icons text-lg mr-3">confirmation_number</span>
-                Manage Tickets
-            </a>
-          </li>
-          <li>
-            <a href="{{ route('admin.reports') }}" class="flex items-center px-3 py-2 hover:bg-white hover:text-gray-900 rounded-lg transition" onclick="updateTitle('Reports', this)">
-                <span class="material-icons text-lg mr-3">analytics</span>
-                Reports
-            </a>
-          </li>
-          <li>
-            <form action="{{ route('admin.logout') }}" method="POST" class="flex items-center px-3 py-2 hover:bg-white hover:text-gray-900 rounded-lg transition">
-                @csrf
-                <button type="submit" class="flex items-center w-full text-left" style="font-size: 14px">
-                    <span class="material-icons text-lg mr-3">logout</span>
-                    Log Out
-                </button>
-            </form>
-        </li>        
-        </ul>
-      </nav>      
-    </aside>
+    <nav class="flex-1 px-3 mt-6">
+      <ul class="space-y-2.5">
+        <li>
+          <a href="{{ url('/') }}" class="flex items-center px-4 py-2.5 rounded-lg text-white hover:bg-white/10 transition">
+            <i data-lucide="home" class="w-5 h-5 mr-3"></i>
+            Back to Home
+          </a>
+        </li>
+        <div class="h-px bg-white/10 my-4"></div>
+        <li>
+          <a href="{{ route('admin.dashboard') }}" class="flex items-center px-4 py-2.5 rounded-lg transition {{ Request::routeIs('admin.dashboard') ? 'active bg-white text-[#1B1464] font-semibold' : 'text-white hover:bg-white/10' }}">
+              <i data-lucide="layout-dashboard" class="w-5 h-5 mr-3"></i>
+              Dashboard
+          </a>
+        </li>
+        <li>
+          <a href="{{ route('admin.manageUsers') }}" class="flex items-center px-4 py-2.5 rounded-lg transition {{ Request::routeIs('admin.manageUsers*') || Request::routeIs('admin.createUser') || Request::routeIs('admin.editUser') ? 'active bg-white text-[#1B1464] font-semibold' : 'text-white hover:bg-white/10' }}">
+              <i data-lucide="users" class="w-5 h-5 mr-3"></i>
+              Manage Users
+          </a>
+        </li>
+        <li>
+          <a href="{{ route('admin.manageEvents') }}" class="flex items-center px-4 py-2.5 rounded-lg transition {{ Request::routeIs('admin.manageEvents*') || Request::routeIs('admin.editEvent') || Request::routeIs('admin.createEvent') ? 'active bg-white text-[#1B1464] font-semibold' : 'text-white hover:bg-white/10' }}">
+              <i data-lucide="calendar" class="w-5 h-5 mr-3"></i>
+              Manage Events
+          </a>
+        </li>
+        <li>
+          <a href="{{ route('admin.manageTickets') }}" class="flex items-center px-4 py-2.5 rounded-lg transition {{ Request::routeIs('admin.manageTickets*') ? 'active bg-white text-[#1B1464] font-semibold' : 'text-white hover:bg-white/10' }}">
+              <i data-lucide="ticket" class="w-5 h-5 mr-3"></i>
+              Manage Tickets
+          </a>
+        </li>
+        <li>
+          <a href="{{ route('admin.reports') }}" class="flex items-center px-4 py-2.5 rounded-lg transition {{ Request::routeIs('admin.reports*') ? 'active bg-white text-[#1B1464] font-semibold' : 'text-white hover:bg-white/10' }}">
+              <i data-lucide="bar-chart-3" class="w-5 h-5 mr-3"></i>
+              Reports
+          </a>
+        </li>
+      </ul>
+    </nav>      
+  </aside>
 
   <!-- Main Content -->
-  <div class="wrapper h-screen w-full flex-col">
+  <div class="wrapper h-screen flex flex-col">
     <!-- Fixed Navbar -->
-    <nav class="navbar bg-white shadow-md fixed top-0 left-0 z-50 w-full p-4 flex items-center justify-between" style="margin-left: 215px; width: calc(100% - 215px);">
-      <h1 id="page-title" class="text-xl font-bold ml-5">Dashboard</h1>
+    <nav class="navbar bg-white border-b border-slate-100 fixed top-0 left-0 z-30 w-full p-4 flex items-center justify-between" style="margin-left: 215px; width: calc(100% - 215px);" x-data="{ openNotifications: false, openProfile: false }">
+      <h1 id="page-title" class="text-lg font-bold text-[#1B1464] ml-5">@yield('title', 'Dashboard')</h1>
 
       <!-- Notifications and Profile -->
       <div class="flex items-center space-x-4 mr-5">
+        <!-- Notification Dropdown -->
+        <div class="relative">
+          <button @click.stop="openNotifications = !openNotifications; openProfile = false" class="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-50 rounded-full relative transition focus:outline-none">
+            <i data-lucide="bell" class="w-5 h-5"></i>
+            <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-rose-500 rounded-full"></span>
+          </button>
+          <!-- Notification Dropdown Menu -->
+          <div x-show="openNotifications" 
+               @click.away="openNotifications = false" 
+               class="absolute right-0 mt-2 w-80 bg-white border border-slate-100 rounded-2xl shadow-xl z-50 overflow-hidden"
+               x-transition:enter="transition ease-out duration-200"
+               x-transition:enter-start="opacity-0 transform scale-95"
+               x-transition:enter-end="opacity-100 transform scale-100"
+               x-transition:leave="transition ease-in duration-75"
+               x-transition:leave-start="opacity-100 transform scale-100"
+               x-transition:leave-end="opacity-0 transform scale-95"
+               style="display: none;">
+            <div class="p-4 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
+              <span class="font-bold text-slate-800 text-xs">Notifications</span>
+              <span class="text-[9px] bg-[#640D5F]/10 text-[#640D5F] font-bold px-2 py-0.5 rounded-full">1 New</span>
+            </div>
+            <div class="divide-y divide-slate-100 max-h-64 overflow-y-auto">
+              <div class="p-4 flex gap-3 items-start hover:bg-slate-50/30 transition cursor-pointer">
+                <div class="w-7 h-7 rounded-lg bg-indigo-50 text-indigo-600 flex items-center justify-center flex-shrink-0">
+                  <i data-lucide="info" class="w-4 h-4"></i>
+                </div>
+                <div>
+                  <p class="text-xs font-semibold text-slate-800">System Status Online</p>
+                  <p class="text-[10px] text-slate-500 mt-0.5">Tixtoria portal is running smoothly. View system metrics.</p>
+                  <p class="text-[9px] text-slate-400 mt-1">Just now</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
-        <img src="{{ $profileUrl }}" alt="Profile" class="w-10 h-10 rounded-full mr-4 object-cover">
+        <div class="h-6 w-px bg-slate-100"></div>
+
+        <!-- Profile Dropdown -->
+        <div class="relative">
+          <button @click.stop="openProfile = !openProfile; openNotifications = false" class="flex items-center gap-2 focus:outline-none hover:opacity-90 transition">
+            <img src="{{ $profileUrl ?? (Auth::user()->profile ?? 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop&q=80') }}" alt="Profile" class="w-9 h-9 rounded-full object-cover border border-slate-100 hover:ring-2 hover:ring-[#640D5F]/20 transition duration-200">
+            <div class="flex flex-col text-left hidden md:flex">
+              <span class="text-xs font-bold text-slate-700 line-clamp-1 leading-tight">{{ Auth::user()->name }}</span>
+              <span class="text-[9px] text-purple-600 font-extrabold tracking-wide uppercase mt-0.5">Admin</span>
+            </div>
+            <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-slate-400 hidden md:inline"></i>
+          </button>
+          
+          <!-- Profile Dropdown Menu -->
+          <div x-show="openProfile" 
+               @click.away="openProfile = false" 
+               class="absolute right-0 mt-2 w-48 bg-white border border-slate-100 rounded-2xl shadow-xl z-50 overflow-hidden"
+               x-transition:enter="transition ease-out duration-200"
+               x-transition:enter-start="opacity-0 transform scale-95"
+               x-transition:enter-end="opacity-100 transform scale-100"
+               x-transition:leave="transition ease-in duration-75"
+               x-transition:leave-start="opacity-100 transform scale-100"
+               x-transition:leave-end="opacity-0 transform scale-95"
+               style="display: none;">
+            <div class="p-4 border-b border-slate-50 bg-slate-50/50">
+              <p class="text-xs font-bold text-slate-800 line-clamp-1">{{ Auth::user()->name }}</p>
+              <p class="text-[10px] text-slate-400 mt-0.5 line-clamp-1">{{ Auth::user()->email }}</p>
+            </div>
+            <div class="p-1">
+              <a href="{{ route('admin.profile.edit') }}" class="flex items-center gap-2 px-3 py-2.5 text-xs font-medium text-slate-600 hover:text-[#640D5F] hover:bg-slate-50 rounded-xl transition">
+                <i data-lucide="settings" class="w-4 h-4"></i>
+                <span>Edit Profile</span>
+              </a>
+              <div class="h-px bg-slate-100 my-1"></div>
+              <form action="{{ route('admin.logout') }}" method="POST">
+                @csrf
+                <button type="submit" class="w-full flex items-center gap-2 px-3 py-2.5 text-xs font-medium text-rose-600 hover:bg-rose-50/50 rounded-xl transition text-left">
+                  <i data-lucide="log-out" class="w-4 h-4"></i>
+                  <span>Log Out</span>
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
       </div>
     </nav>
 
     <!-- Scrollable Main Content -->
-    <main class="flex-1 pt-24 p-8 bg-gray-100 overflow-auto">
+    <main class="flex-1 pt-24 p-8 bg-slate-50 overflow-auto">
       @yield('content')
     </main>
   </div>
-
   <script>
-    function updateTitle(title, element) {
-      event.preventDefault();
-
-      document.getElementById('page-title').innerText = title;
-
-      // Fetch the new content
-      const newUrl = element.getAttribute("href");
-      history.pushState(null, title, newUrl);
-
-      fetch(newUrl)
-      .then(response => response.text())
-      .then(data => {
-        // Select only the content within the <main> tag and update it
-        const newContent = new DOMParser().parseFromString(data, 'text/html').querySelector('main');
-        document.querySelector('main').innerHTML = newContent.innerHTML; // Update the content inside <main>
-      });
-
-      document.querySelectorAll('nav a').forEach(link => link.classList.remove('active'));
-      element.classList.add('active');
-    }
-    
-    // For initial hover effect setup
-    document.querySelectorAll('nav a').forEach(item => {
-      item.addEventListener('mouseenter', function () {
-        this.classList.add('hover:bg-white');
-        this.classList.add('hover:text-gray-900');
-      });
-      item.addEventListener('mouseleave', function () {
-        this.classList.remove('hover:bg-white');
-        this.classList.remove('hover:text-gray-900');
-      });
+    document.addEventListener("DOMContentLoaded", function() {
+      lucide.createIcons();
     });
   </script>
 </body>

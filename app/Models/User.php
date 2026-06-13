@@ -43,11 +43,10 @@ class User extends Authenticatable implements MustVerifyEmail
         'email_verified_at' => 'datetime',
     ];
 
-     // Relasi dengan model Favorite
-     public function favorites()
-     {
-         return $this->hasMany(Favorite::class, 'id_user');
-     }
+    public function favorites()
+    {
+        return $this->hasMany(Favorite::class, 'id_user');
+    }
 
      public function events()
     {

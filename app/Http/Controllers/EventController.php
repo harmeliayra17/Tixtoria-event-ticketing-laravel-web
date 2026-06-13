@@ -15,26 +15,20 @@ use Illuminate\Support\Facades\Storage;
 
 class EventController extends Controller
 {
-    // Homepage: Show events with their first image
     public function index()
     {
-        // Mengambil semua acara dengan gambar dari kolom 'image'
         $events = Event::all();
     
-        // Menentukan gambar pertama untuk setiap acara
         foreach ($events as $event) {
-            $event->first_image = $event->image;  // Gambar diambil dari kolom 'image'
+            $event->first_image = $event->image;
         }
     
-        // Menampilkan acara terbaru berdasarkan date
         $latestEvents = Event::orderBy('date', 'desc')->limit(8)->get();
 
-        // Menambahkan properti first_image untuk setiap event
         foreach ($latestEvents as $event) {
             $event->first_image = $event->image;
         }
     
-        // Menampilkan acara terpopuler berdasarkan jumlah booking
         $popularEvents = Event::select('events.*')
             ->addSelect([
                 'bookings_count' => DB::table('bookings')
@@ -53,33 +47,26 @@ class EventController extends Controller
         return view('homepage-guest', compact('events', 'latestEvents', 'popularEvents'));
     }
 
-    // Show event details page
     public function show($id)
     {
-        // Menampilkan event beserta kategorinya, lokasi, dan gambar
         $event = Event::with(['category', 'location'])->findOrFail($id);
-        $event->first_image = $event->image; // Mengambil gambar dari kolom 'image'
+        $event->first_image = $event->image;
 
         return view('eventDetails', compact('event'));
     }
 
-    // Admin area: List all events
     public function adminIndex(Request $request)
     {
-        // Mengambil semua kategori dan lokasi untuk filter
         $categories = Category::all();
         $locations = Location::all();
         
-        // Menangkap query pencarian dan parameter filter
         $search = $request->get('search');
         $date = $request->get('date');
-        $city = $request->get('location'); // Mendapatkan lokasi dari request
-        $categoryId = $request->get('category'); // Mendapatkan kategori dari request
+        $city = $request->get('location');
+        $categoryId = $request->get('category');
         
-        // Query dasar untuk events
         $eventsQuery = Event::query();
         
-        // Pencarian berdasarkan nama event atau lokasi
         if ($search) {
             $search = strtolower($search);
             $eventsQuery->where(function ($query) use ($search) {
@@ -90,27 +77,22 @@ class EventController extends Controller
             });
         }
     
-        // Filter berdasarkan tanggal
         if ($date) {
             $eventsQuery->whereDate('date', '=', $date);
         }
     
-        // Filter berdasarkan kategori
         if ($categoryId) {
-            $eventsQuery->where('id_category', $categoryId); // Sesuaikan nama kolom jika berbeda
+            $eventsQuery->where('id_category', $categoryId);
         }
     
-        // Filter berdasarkan lokasi
         if ($city) {
             $eventsQuery->whereHas('location', function ($query) use ($city) {
                 $query->where('city', 'like', '%' . $city . '%');
             });
         }
     
-        // Mendapatkan hasil akhir dengan sorting berdasarkan tanggal terbaru
-        $events = $eventsQuery->orderBy('date', 'desc')->paginate(12); // Menggunakan paginate jika ingin tampilan halaman per halaman
+        $events = $eventsQuery->orderBy('date', 'desc')->paginate(12);
         
-        // Menentukan judul halaman berdasarkan kondisi filter yang ada
         if ($search) {
             $title = "Search results for '$search'";
         } elseif ($date) {
@@ -127,26 +109,21 @@ class EventController extends Controller
             $title = "All Events";
         }
     
-        // Mengirimkan data ke view
         return view('admin.manageEvents', compact('events', 'categories', 'locations', 'title'));
     }    
 
     public function catalog(Request $request)
     {
-        // Mengambil semua kategori dan lokasi untuk filter
         $categories = Category::all();
         $locations = Location::all();
         
-        // Menangkap query pencarian dan parameter filter
         $search = $request->get('search');
         $date = $request->get('date');
-        $city = $request->get('location'); // Mendapatkan lokasi dari request
-        $categoryId = $request->get('category'); // Mendapatkan kategori dari request
+        $city = $request->get('location');
+        $categoryId = $request->get('category');
         
-        // Query dasar untuk events
         $eventsQuery = Event::query();
         
-        // Pencarian berdasarkan nama event atau lokasi
         if ($search) {
             $search = strtolower($search);
             $eventsQuery->where(function ($query) use ($search) {
@@ -157,26 +134,23 @@ class EventController extends Controller
             });
         }
         
-        // Filter berdasarkan tanggal
         if ($date) {
             $eventsQuery->whereDate('date', '=', $date);
         }
         
-        // Filter berdasarkan kategori
         if ($categoryId) {
-            $eventsQuery->where('id_category', $categoryId); // Sesuaikan nama kolom jika berbeda
+            $eventsQuery->where('id_category', $categoryId);
         }
         
-        // Mendapatkan hasil akhir dengan sorting berdasarkan tanggal terbaru
         $events = $eventsQuery->orderBy('date', 'desc')->get();
         
-        // Menentukan judul halaman berdasarkan kondisi filter yang ada
         if ($search) {
             $title = "Search results for '$search'";
         } elseif ($date) {
             $title = "Events on $date";
         } elseif ($categoryId && $city) {
-            $title = "Events in $city under $categories->find($categoryId)->name category";
+            $category = $categories->find($categoryId);
+            $title = "Events in $city under " . ($category ? $category->name : '') . " category";
         } elseif ($categoryId) {
             $category = $categories->find($categoryId);
             $title = "Events in " . $category->name . " category";
@@ -186,25 +160,12 @@ class EventController extends Controller
             $title = "All Events";
         }
     
-        // Mengirimkan data ke view
         return view('eventCatalog', compact('events', 'categories', 'locations', 'title'));
     }
     
-    //Tambah Event
-    // private $eventService;
-
-    // public function __construct(EventService $eventService)
-    // {
-    //     $this->eventService = $eventService;
-    // }
-
     public function create()
     {
-        // Fetch categories from the database
         $categories = Category::all();
-    
-
-        // Pass the categories to the view
         return view('admin.createEvent', compact('categories'));
     }
 
@@ -224,14 +185,12 @@ class EventController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
     
-        // Menyimpan lokasi terlebih dahulu
         $location = Location::create([
             'location_name' => $validated['location_name'],
             'city' => $validated['city'],
             'province' => $validated['province'],
         ]);
     
-        // Menyimpan acara dan mengaitkan dengan lokasi
         $event = Event::create([
             'title' => $validated['title'],
             'description' => $validated['description'],
@@ -240,21 +199,18 @@ class EventController extends Controller
             'price' => $validated['price'],
             'id_category' => $validated['id_category'],
             'quota' => $validated['quota'],
-            'location_id' => $location->id, // Menghubungkan lokasi ke acara
+            'location_id' => $location->id,
         ]);
     
-    // Handle image update (if any)
-    if ($request->hasFile('image')) {
-        // Hapus gambar lama jika ada
-        if ($event->image && Storage::exists(str_replace('/storage/', '', $event->image))) {
-            Storage::delete(str_replace('/storage/', '', $event->image));
-        }
+        if ($request->hasFile('image')) {
+            if ($event->image && Storage::exists(str_replace('/storage/', '', $event->image))) {
+                Storage::delete(str_replace('/storage/', '', $event->image));
+            }
 
-        // Simpan gambar baru
-        $path = $request->file('image')->store('events', 'public');
-        $event->image = '/storage/' . $path; // Tambahkan prefix untuk akses URL
-        $event->save();
-    }
+            $path = $request->file('image')->store('events', 'public');
+            $event->image = '/storage/' . $path;
+            $event->save();
+        }
     
         return redirect()->route('admin.manageEvents')->with('success', 'Event created successfully');
     }
@@ -263,32 +219,24 @@ class EventController extends Controller
     {
         $event = Event::findOrFail($id);
     
-        // Hapus gambar dari storage jika ada
         if ($event->image && Storage::exists('public/' . $event->image)) {
             Storage::delete('public/' . $event->image);
         }
     
-        // Hapus event dari database
         $event->delete();
     
         return redirect()->route('admin.manageEvents')->with('success', 'Event deleted successfully!');
     }
     
-
-    // Metode untuk menampilkan form edit event
     public function edit($id)
     {
-        // Ambil data event berdasarkan ID
         $event = Event::findOrFail($id);
-        $categories = Category::all(); // Assuming you have a Category model
-
+        $categories = Category::all();
         return view('admin.editEvent', compact('event', 'categories'));
     }
 
-    // Metode untuk menangani permintaan update event
     public function update(Request $request, $id)
     {
-        // Validasi data yang diterima
         $validatedData = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'nullable|string',
@@ -303,11 +251,9 @@ class EventController extends Controller
             'image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
         ]);
     
-        // Temukan event berdasarkan ID
         $event = Event::findOrFail($id);
 
     
-        // Update data event
         $event->update([
             'title' => $validatedData['title'],
             'description' => $validatedData['description'],
@@ -318,30 +264,24 @@ class EventController extends Controller
             'id_category' => $validatedData['id_category'],  
         ]);
     
-        // Update lokasi event
         $event->location()->update([
             'location_name' => $validatedData['location_name'],
             'city' => $validatedData['city'],
             'province' => $validatedData['province'],
         ]);
     
-    // Handle image update (if any)
-    if ($request->hasFile('image')) {
-        // Hapus gambar lama jika ada
-        if ($event->image && Storage::exists(str_replace('/storage/', '', $event->image))) {
-            Storage::delete(str_replace('/storage/', '', $event->image));
+        if ($request->hasFile('image')) {
+            if ($event->image && Storage::exists(str_replace('/storage/', '', $event->image))) {
+                Storage::delete(str_replace('/storage/', '', $event->image));
+            }
+
+            $path = $request->file('image')->store('events', 'public');
+            $event->image = '/storage/' . $path;
+            $event->save();
         }
 
-        // Simpan gambar baru
-        $path = $request->file('image')->store('events', 'public');
-        $event->image = '/storage/' . $path; // Tambahkan prefix untuk akses URL
-        $event->save();
-    }
-
-
-        // Redirect ke halaman event setelah update berhasil
         return redirect()->route('admin.manageEvents')->with('success', 'Event updated successfully!');
-    }    
+    }
 
     // public function store(Request $request, EventService $eventService)
     // {

@@ -19,6 +19,7 @@ return new class extends Migration
             $table->date('date');
             $table->time('time');
             $table->foreignId('location_id')->constrained('locations')->onDelete('cascade'); // foreignId untuk location_id
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('cascade');
             $table->decimal('price', 10, 2);
             $table->integer('quota');
             $table->timestamps();

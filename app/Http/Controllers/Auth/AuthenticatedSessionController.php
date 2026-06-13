@@ -47,19 +47,17 @@ class AuthenticatedSessionController extends Controller
             // Regenerasi session untuk keamanan
             $request->session()->regenerate();
 
-            // Redirect berdasarkan role user
             if (Auth::user()->role === 'admin') {
-                return redirect()->route('admin.dashboard'); // Admin ke dashboard admin
+                return redirect()->route('admin.dashboard');
             }
 
             if (Auth::user()->role === 'organizer') {
-                return redirect()->route('organizer.dashboard'); // Organizer ke dashboard organizer
+                return redirect()->route('organizer.dashboard');
             }    
 
-            return redirect()->route('homepage'); // Non-admin ke homepage
+            return redirect()->route('homepage');
         }
 
-        // Jika login gagal
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
         ])->onlyInput('email');

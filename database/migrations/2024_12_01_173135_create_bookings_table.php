@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('id_event')->constrained('events')->onDelete('cascade');
             $table->foreignId('id_user')->constrained('users')->onDelete('cascade'); 
-            $table->enum('status', ['pending', 'confirmed', 'cancelled'])->default('pending'); // Status booking
+            $table->enum('status', ['pending', 'confirmed', 'cancelled'])->default('pending');
             $table->integer('quantity'); 
-            $table->decimal('total_price', 15, 2)->nullable();  // Kolom total_price, bisa dihitung di aplikasi
+            $table->decimal('total_price', 15, 2)->nullable();
             $table->string('payment_method')->nullable(); 
             $table->timestamps();
         });
