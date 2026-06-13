@@ -55,7 +55,6 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
-        // Masukkan middleware 'admin' di sini
         'admin' => \App\Http\Middleware\AdminMiddleware::class,
         'organizer' => \App\Http\Middleware\OrganizerMiddleware::class,
         'shareAdminData' => \App\Http\Middleware\ShareAdminData::class,

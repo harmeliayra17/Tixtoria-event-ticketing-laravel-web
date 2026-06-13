@@ -282,48 +282,4 @@ class EventController extends Controller
 
         return redirect()->route('admin.manageEvents')->with('success', 'Event updated successfully!');
     }
-
-    // public function store(Request $request, EventService $eventService)
-    // {
-    //     // Validasi data
-    //     $validated = $request->validate([
-    //         'title' => 'required|string|max:255',
-    //         'description' => 'required|string',
-    //         'date' => 'required|date',
-    //         'time' => 'required',
-    //         'price' => 'required|numeric',
-    //         'quota' => 'required|integer',
-    //         'category' => 'required|integer',
-    //         'location_name' => 'required|string',
-    //         'city' => 'required|string',
-    //         'province' => 'required|string',
-    //         'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048', // Hanya satu gambar
-    //     ]);
-    
-    //     // Panggil EventService untuk menyimpan event
-    //     $event = $eventService->createEvent($validated);
-    
-    //     // Jika ada gambar, simpan gambar ke tabel events
-    //     if ($request->hasFile('image')) {
-    //         $path = $request->file('image')->store('events', 'public');
-    //         $event->image = $path;  // Simpan gambar di kolom 'image' pada tabel events
-    //         $event->save();
-    //     }
-
-    //     // Redirect atau kirim respons
-    //     if ($event) {
-    //         return redirect()->route('admin.manageEvents')->with('success', 'Event created successfully!');
-    //     } else {
-    //         return redirect()->back()->with('error', 'Failed to create event. Please try again.');
-    //     }
-    // }
-
-    // public function delete($id)
-    // {
-    //     $this->eventService->deleteEvent($id);
-
-    //     return redirect()->route('admin.manageEvents')->with('success', 'Event has been deleted successfully.');
-    // }
-
-    
 }

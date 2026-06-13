@@ -62,17 +62,17 @@
   <!-- Users Table Listing -->
   <div class="bg-white border border-slate-100 rounded-2xl shadow-sm overflow-hidden">
     <div class="p-6 border-b border-slate-100">
-        <h2 class="text-lg font-bold text-[#1B1464]">Daftar Pengguna</h2>
+        <h2 class="text-lg font-bold text-[#1B1464]">User List</h2>
     </div>
     <div class="overflow-x-auto">
         <table class="w-full table-auto border-collapse">
           <thead>
             <tr class="bg-slate-50 border-b border-slate-100 text-left text-xs font-bold text-slate-400 uppercase tracking-wider">
               <th class="p-4 pl-6">Profile</th>
-              <th class="p-4">Nama</th>
+              <th class="p-4">Name</th>
               <th class="p-4">Email</th>
               <th class="p-4">Role</th>
-              <th class="p-4 pr-6 text-center">Aksi</th>
+              <th class="p-4 pr-6 text-center">Action</th>
             </tr>
           </thead>
           <tbody class="divide-y divide-slate-100 text-sm">

@@ -17,18 +17,27 @@
     }
     aside {
       position: fixed;
+      transform: translateX(-100%);
+      transition: transform 0.3s ease-in-out;
+    }
+    aside.open {
+      transform: translateX(0);
     }
     a {
       font-size: 14px;
     }
     .navbar {
       position: fixed;
+      left: 0;
+      width: 100%;
+      transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out;
     }
     .wrapper {
-      margin-left: 215px; 
+      margin-left: 0;
       height: 100vh;
       overflow-y: auto;
-      width: calc(100% - 215px);
+      width: 100%;
+      transition: margin-left 0.3s ease-in-out, width 0.3s ease-in-out;
     }
     body {
       font-family: 'Poppins', sans-serif;
@@ -50,12 +59,29 @@
       background-color: #640D5F; 
       border-radius: 4px; 
     }
+
+    @media (min-width: 1024px) {
+      aside {
+        transform: translateX(0);
+      }
+      .navbar {
+        margin-left: 215px;
+        width: calc(100% - 215px);
+      }
+      .wrapper {
+        margin-left: 215px;
+        width: calc(100% - 215px);
+      }
+    }
   </style>
 </head>
-<body class="flex bg-slate-50 h-screen overflow-hidden">
+<body class="flex bg-slate-50 h-screen overflow-hidden" x-data="{ sidebarOpen: false }">
+
+  <!-- Mobile Sidebar Overlay -->
+  <div x-show="sidebarOpen" @click="sidebarOpen = false" class="fixed inset-0 bg-black/40 z-30 lg:hidden" style="display: none;"></div>
 
   <!-- Sidebar -->
-  <aside class="sidebar-bg w-[215px] h-full text-white flex flex-col z-40 shadow-xl">
+  <aside :class="sidebarOpen ? 'open' : ''" class="sidebar-bg w-[215px] h-full text-white flex flex-col z-40 shadow-xl">
     <div class="p-6 flex items-center border-b border-white/10">
       <img src="{{ asset('images/logo-wht.png') }}" alt="Tixtoria Logo" class="h-8 rounded-md">
     </div>
@@ -93,8 +119,16 @@
   <!-- Main Content -->
   <div class="wrapper h-screen flex flex-col">
     <!-- Fixed Navbar -->
-    <nav class="navbar bg-white border-b border-slate-100 fixed top-0 left-0 z-30 w-full p-4 flex items-center justify-between" style="margin-left: 215px; width: calc(100% - 215px);" x-data="{ openNotifications: false, openProfile: false }">
-      <h1 id="page-title" class="text-lg font-bold text-[#1B1464] ml-5">@yield('title', 'Dashboard')</h1>
+    <nav class="navbar bg-white border-b border-slate-100 fixed top-0 left-0 z-30 w-full p-4 flex items-center justify-between" x-data="{ openNotifications: false, openProfile: false }">
+      <div class="flex items-center">
+        <!-- Toggle button -->
+        <button @click.stop="sidebarOpen = !sidebarOpen" class="lg:hidden p-2 text-[#1B1464] hover:bg-slate-50 rounded-lg mr-2 focus:outline-none">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+        <h1 id="page-title" class="text-lg font-bold text-[#1B1464] ml-2 lg:ml-5">@yield('title', 'Dashboard')</h1>
+      </div>
 
       <!-- Notifications and Profile -->
       <div class="flex items-center space-x-4 mr-5">

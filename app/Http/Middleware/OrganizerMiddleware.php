@@ -16,7 +16,6 @@ class OrganizerMiddleware
      */
     public function handle($request, Closure $next)
     {
-        // Periksa role admin
         if (Auth::check() && Auth::user()->role === 'organizer') {
             return $next($request);
         }

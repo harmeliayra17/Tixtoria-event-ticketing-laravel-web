@@ -36,15 +36,12 @@ class AuthenticatedSessionController extends Controller
 
     public function store(Request $request)
     {
-        // Validasi data login
         $credentials = $request->validate([
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
 
-        // Coba login
         if (Auth::attempt($credentials)) {
-            // Regenerasi session untuk keamanan
             $request->session()->regenerate();
 
             if (Auth::user()->role === 'admin') {
