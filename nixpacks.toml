@@ -1,0 +1,14 @@
+# Nixpacks configuration for Laravel deployment on Railway
+[providers]
+providers = ["php", "node"]
+
+[variables]
+# Installs necessary extensions for Laravel and PostgreSQL
+NIXPACKS_PHP_EXTS = "pdo,pdo_pgsql,pgsql,mbstring,openssl,exif,pcntl,gd,zip"
+
+[phases.build]
+cmds = [
+    "composer install --no-dev --optimize-autoloader --non-interactive",
+    "npm install",
+    "npm run build"
+]
