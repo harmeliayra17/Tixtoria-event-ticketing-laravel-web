@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="w-full pb-12">
-    <!-- Header Summary Card -->
+    
     <div class="bg-white border border-slate-100 rounded-2xl p-4 shadow-sm mb-6 flex items-center gap-3">
         <div class="w-8 h-8 rounded-lg bg-[#1B1464]/5 text-[#1B1464] flex items-center justify-center flex-shrink-0">
             <i data-lucide="ticket" class="w-4 h-4"></i>
@@ -12,7 +12,7 @@
         <p class="text-xs text-slate-500">Review your ticket purchase history, reservation statuses, and download invoice copies.</p>
     </div>
 
-    <!-- Bookings Listing Card -->
+    
     <div class="bg-white border border-slate-100 rounded-2xl shadow-sm overflow-hidden">
         @if($bookings->isEmpty())
             <div class="text-center py-16">

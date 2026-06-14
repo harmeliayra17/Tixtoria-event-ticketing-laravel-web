@@ -25,18 +25,18 @@
             </p>
         </div>
 
-        <!-- Session Status -->
+        
         @if (session('status'))
             <div class="mb-4 text-sm text-green-600">
                 {{ session('status') }}
             </div>
         @endif
 
-        <!-- Password Reset Form -->
+        
         <form method="POST" action="{{ route('password.email') }}" class="w-full">
             @csrf
 
-            <!-- Email Address -->
+            
             <div class="mb-4">
                 <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email</label>
                 <input id="email" type="email" name="email" value="{{ old('email') }}" required autofocus
@@ -46,7 +46,7 @@
                 @enderror
             </div>
 
-            <!-- Reset Password Button -->
+            
             <div class="flex items-center justify-end mt-4">
                 <button type="submit" class="w-full bg-[#640D5F] text-white py-2 px-4 rounded hover:bg-[#1B1464]">
                     Email Password Reset Link
@@ -54,7 +54,7 @@
             </div>
         </form>
 
-        <!-- Footer Links -->
+        
         <div class="text-center mt-4">
             <p class="text-gray-500 text-sm">Remember your password?
                 <a href="{{ route('login') }}" class="text-indigo-500 hover:underline">Log in here</a>

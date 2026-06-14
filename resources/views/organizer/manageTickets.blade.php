@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="w-full pb-12" x-data="{ showInvoice: {{ session('show_invoice_id') ? 'true' : 'false' }}, invoiceId: {{ session('show_invoice_id') ?? 0 }} }">
-    <!-- Header Summary Card -->
+    
     <div class="bg-white border border-slate-100 rounded-2xl p-4 shadow-sm mb-6 flex items-center gap-3">
         <div class="w-8 h-8 rounded-lg bg-[#1B1464]/5 text-[#1B1464] flex items-center justify-center flex-shrink-0">
             <i data-lucide="ticket" class="w-4 h-4"></i>
@@ -12,7 +12,7 @@
         <p class="text-xs text-slate-500">Review ticket reservations and update payment status for your events.</p>
     </div>
 
-    <!-- Bookings Listing Card -->
+    
     <div class="bg-white border border-slate-100 rounded-2xl shadow-sm overflow-hidden">
         @if($bookings->isEmpty())
             <div class="text-center py-16">
@@ -101,7 +101,7 @@
         @endif
     </div>
 
-    <!-- Floating Invoice Modal -->
+    
     <div x-show="showInvoice"
          x-transition:enter="transition ease-out duration-300"
          x-transition:enter-start="opacity-0"
@@ -111,9 +111,9 @@
          x-transition:leave-end="opacity-0"
          class="fixed inset-0 z-[9999] flex items-center justify-center p-4"
          style="display: none;">
-        <!-- Backdrop -->
+        
         <div class="absolute inset-0 bg-black/60 backdrop-blur-sm" @click="showInvoice = false"></div>
-        <!-- Modal Card -->
+        
         <div class="relative bg-white rounded-2xl shadow-2xl max-w-lg w-full max-h-[85vh] overflow-y-auto z-10 border border-slate-100"
              @click.stop
              x-transition:enter="transition ease-out duration-300"
@@ -122,18 +122,18 @@
              x-transition:leave="transition ease-in duration-200"
              x-transition:leave-start="opacity-100 scale-100"
              x-transition:leave-end="opacity-0 scale-95">
-            <!-- Close Button -->
+            
             <button @click="showInvoice = false" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center text-slate-500 hover:text-slate-700 transition z-20">
                 <i data-lucide="x" class="w-4 h-4"></i>
             </button>
-            <!-- Invoice Content -->
+            
             <template x-if="showInvoice && invoiceId">
                 <div x-html="document.getElementById('invoice-data-' + invoiceId)?.innerHTML || '<p class=\'p-6 text-slate-500 text-sm\'>Invoice not found.</p>'"></div>
             </template>
         </div>
     </div>
 
-    <!-- Hidden Invoice Data -->
+    
     @foreach ($bookings as $booking)
         <div id="invoice-data-{{ $booking->id }}" class="hidden">
             @include('organizer.invoice', ['booking' => $booking])

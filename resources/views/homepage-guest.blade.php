@@ -41,7 +41,7 @@
             background-color: #ffffff;
         }
 
-        /* Smooth scroll styling */
+        
         ::-webkit-scrollbar {
             width: 10px; 
         }
@@ -68,12 +68,12 @@
 
 <body class="bg-slate-50 text-slate-800 antialiased">
 
-    <!-- Navbar -->
+    
     <x-guest-navbar />
 
-    <!-- Hero Section -->
+    
     <section class="hero-bg text-white relative flex items-center h-[calc(100vh-73px)] overflow-hidden">
-        <!-- Overlay -->
+        
         <div class="absolute inset-0 bg-gradient-to-tr from-[#1B1464]/60 via-slate-900/50 to-[#640D5F]/15 z-10"></div>
         
         <div class="container mx-auto px-6 lg:px-20 relative z-20 flex flex-col items-center justify-center text-center py-20">
@@ -84,7 +84,7 @@
                 From live concerts to exclusive workshops, Tixtoria connects you to local and global premium live experiences. Start exploring now!
             </p>
 
-            <!-- Search Capsule -->
+            
             <div class="mt-10 w-full max-w-3xl bg-white/10 backdrop-blur-md border border-white/20 p-2 rounded-2xl md:rounded-full shadow-2xl">
                 <form action="{{ route('eventCatalog') }}" method="GET" class="flex flex-col md:flex-row items-center gap-2">
                     @csrf
@@ -108,7 +108,7 @@
                 </form>
             </div>
             
-            <!-- Dots -->
+            
             <div class="dots mt-12 flex justify-center gap-3">
                 <span class="dot active" data-index="0"></span>
                 <span class="dot" data-index="1"></span>
@@ -119,7 +119,7 @@
         </div>
     </section>    
 
-    <!-- Categories Section -->
+    
     <section class="py-16 bg-white border-b border-slate-100">
         <div class="container mx-auto px-6 lg:px-20">
             <div class="text-center max-w-2xl mx-auto mb-12">
@@ -154,7 +154,7 @@
         </div>
     </section>
 
-    <!-- Upcoming Events Section -->
+    
     <section class="py-16 bg-slate-50">
         <div class="container mx-auto px-6 lg:px-20">
             <div class="flex justify-between items-end mb-10">
@@ -171,7 +171,7 @@
             <div class="flex overflow-x-auto gap-6 pb-6 -mx-6 px-6 lg:mx-0 lg:px-0 no-scrollbar">
                 @foreach ($latestEvents as $event)
                     <a href="{{ route('events.show', $event->id) }}" class="min-w-[280px] md:min-w-[320px] max-w-[320px] flex-shrink-0 group bg-white border border-slate-100 rounded-2xl overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between h-full relative">
-                        <!-- Image & Category Badge -->
+                        
                         <div class="relative overflow-hidden h-48 bg-slate-100">
                             <img src="{{ Str::startsWith($event->image, ['http://', 'https://']) ? $event->image : ($event->image ? asset($event->image) : 'https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=800&auto=format&fit=crop&q=80') }}" alt="{{ $event->title }}" class="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500">
                             <span class="absolute top-4 left-4 bg-white/95 backdrop-blur-sm text-[#640D5F] text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-sm">
@@ -179,7 +179,7 @@
                             </span>
                         </div>
                         
-                        <!-- Details -->
+                        
                         <div class="p-5 flex-1 flex flex-col justify-between">
                             <div>
                                 <div class="flex items-center gap-1.5 text-[#640D5F] text-xs font-semibold">
@@ -213,7 +213,7 @@
         </div>
     </section>
 
-    <!-- Popular Events Section -->
+    
     <section class="py-16 bg-white">
         <div class="container mx-auto px-6 lg:px-20">
             <div class="flex justify-between items-end mb-10">
@@ -230,7 +230,7 @@
             <div class="flex overflow-x-auto gap-6 pb-6 -mx-6 px-6 lg:mx-0 lg:px-0 no-scrollbar">
                 @foreach ($popularEvents as $event)
                     <a href="{{ route('events.show', $event->id) }}" class="min-w-[280px] md:min-w-[320px] max-w-[320px] flex-shrink-0 group bg-white border border-slate-100 rounded-2xl overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between h-full relative">
-                        <!-- Image & Category Badge -->
+                        
                         <div class="relative overflow-hidden h-48 bg-slate-100">
                             <img src="{{ Str::startsWith($event->image, ['http://', 'https://']) ? $event->image : ($event->image ? asset($event->image) : 'https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=800&auto=format&fit=crop&q=80') }}" alt="{{ $event->title }}" class="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500">
                             <span class="absolute top-4 left-4 bg-white/95 backdrop-blur-sm text-[#640D5F] text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-sm">
@@ -238,7 +238,7 @@
                             </span>
                         </div>
                         
-                        <!-- Details -->
+                        
                         <div class="p-5 flex-1 flex flex-col justify-between">
                             <div>
                                 <div class="flex items-center gap-1.5 text-[#640D5F] text-xs font-semibold">
@@ -272,7 +272,7 @@
         </div>
     </section>
 
-    <!-- Host Event CTA Section -->
+    
     <section class="py-20 bg-gradient-to-r from-[#1B1464] to-[#640D5F] text-white relative overflow-hidden">
         <div class="absolute inset-0 bg-black/10"></div>
         <div class="container mx-auto px-6 lg:px-20 relative z-10 flex flex-col md:flex-row items-center justify-between gap-8">
@@ -291,7 +291,7 @@
         </div>
     </section>
 
-    <!-- Footer -->
+    
     <x-guest-footer />
 
     <script>
@@ -310,21 +310,21 @@
         function changeBackground(index) {
             heroBg.style.backgroundImage = `linear-gradient(to bottom, rgba(27, 20, 100, 0.5), rgba(15, 23, 42, 0.5)), url('${images[index]}')`;
     
-            // Set active dot
+            
             dots.forEach(dot => dot.classList.remove('active'));
             dots[index].classList.add('active');
         }
     
-        // Set initial background
+        
         changeBackground(currentIndex);
     
-        // Change image every 3 seconds
+        
         setInterval(() => {
             currentIndex = (currentIndex + 1) % images.length;
             changeBackground(currentIndex);
         }, 3000);
     
-        // Dots click event
+        
         dots.forEach(dot => {
             dot.addEventListener('click', () => {
                 const index = parseInt(dot.getAttribute('data-index'));

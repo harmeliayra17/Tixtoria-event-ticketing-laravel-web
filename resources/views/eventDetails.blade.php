@@ -15,7 +15,7 @@
             font-family: 'Poppins', sans-serif;
         }
 
-        /* Smooth scroll styling */
+        
         ::-webkit-scrollbar {
             width: 10px; 
         }
@@ -35,10 +35,10 @@
 
 <body class="bg-slate-50 text-slate-800 antialiased">
 
-    <!-- Navbar -->
+    
     <x-guest-navbar />
 
-    <!-- Success / Error Status Alerts -->
+    
     <div class="container mx-auto px-6 lg:px-20 mt-6">
         @if(session('success'))
             <div class="bg-emerald-50 border border-emerald-200 text-emerald-800 p-4 rounded-xl flex items-center gap-3">
@@ -54,9 +54,9 @@
         @endif
     </div>
 
-    <!-- Main Container -->
+    
     <main class="container mx-auto px-6 lg:px-20 py-8">
-        <!-- Event Header Info -->
+        
         <div class="mb-8">
             <span class="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-[#640D5F]/10 text-[#640D5F] text-xs font-bold uppercase tracking-wider mb-3">
                 {{ $event->category->name }}
@@ -66,9 +66,9 @@
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
             
-            <!-- Left Column: Media & Description -->
+            
             <div class="lg:col-span-2 space-y-8">
-                <!-- Large Event Image -->
+                
                 <div class="relative w-full aspect-[16/9] rounded-2xl overflow-hidden shadow-md bg-slate-100">
                     <img 
                         src="{{ Str::startsWith($event->image, ['http://', 'https://']) ? $event->image : ($event->image ? asset($event->image) : 'https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=800&auto=format&fit=crop&q=80') }}" 
@@ -76,9 +76,9 @@
                         class="w-full h-full object-cover">
                 </div>
 
-                <!-- Event Details Grid -->
+                
                 <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <!-- Location Detail -->
+                    
                     <div class="flex items-start gap-3">
                         <div class="w-10 h-10 rounded-xl bg-[#640D5F]/5 flex items-center justify-center flex-shrink-0">
                             <i data-lucide="map-pin" class="w-5 h-5 text-[#640D5F]"></i>
@@ -92,7 +92,7 @@
                         </div>
                     </div>
 
-                    <!-- Date & Time Detail -->
+                    
                     <div class="flex items-start gap-3">
                         <div class="w-10 h-10 rounded-xl bg-[#640D5F]/5 flex items-center justify-center flex-shrink-0">
                             <i data-lucide="calendar" class="w-5 h-5 text-[#640D5F]"></i>
@@ -106,7 +106,7 @@
                         </div>
                     </div>
 
-                    <!-- Quota/Capacity Detail -->
+                    
                     <div class="flex items-start gap-3">
                         <div class="w-10 h-10 rounded-xl bg-[#640D5F]/5 flex items-center justify-center flex-shrink-0">
                             <i data-lucide="users" class="w-5 h-5 text-[#640D5F]"></i>
@@ -121,7 +121,7 @@
                     </div>
                 </div>
 
-                <!-- Event Rich Description -->
+                
                 <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-6 md:p-8">
                     <h3 class="text-xl font-bold text-[#1B1464] border-b border-slate-50 pb-4 mb-4">Event Description</h3>
                     <div class="text-sm text-slate-600 leading-relaxed space-y-4">
@@ -130,7 +130,7 @@
                 </div>
             </div>
 
-            <!-- Right Column: Sticky Booking / Checkout Card -->
+            
             <div class="lg:col-span-1">
                 <div class="sticky top-24 bg-white border border-slate-100 rounded-2xl shadow-xl p-6 space-y-6">
                     <div>
@@ -146,12 +146,12 @@
 
                     <div class="border-t border-slate-100 pt-6">
                         @auth
-                            <!-- Booking Form -->
+                            
                             <form action="{{ route('book.store', $event->id) }}" method="POST" class="space-y-4">
                                 @csrf
                                 <input type="hidden" id="quantity" name="quantity" value="1" required>
 
-                                <!-- Quantity Selector -->
+                                
                                 <div class="flex items-center justify-between bg-slate-50 p-3.5 rounded-xl border border-slate-200/50">
                                     <span class="text-sm font-semibold text-slate-700">Quantity</span>
                                     <div class="flex items-center gap-3">
@@ -171,7 +171,7 @@
                                     </div>
                                 </div>
 
-                                <!-- User Billing Information -->
+                                
                                 <div class="space-y-3">
                                     <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Billing Contact</h4>
                                     <div>
@@ -185,7 +185,7 @@
                                     </div>
                                 </div>
 
-                                <!-- Payment Selector -->
+                                
                                 <div class="space-y-3">
                                     <label for="payment-method" class="block text-xs font-bold text-slate-400 uppercase tracking-wider">Payment Method</label>
                                     <div class="relative">
@@ -200,8 +200,8 @@
                                     </div>
                                 </div>
 
-                                <!-- Dynamic payment method sections -->
-                                <!-- Bank Transfer -->
+                                
+                                
                                 <div id="payment-bank_transfer" class="payment-details-panel space-y-3 bg-slate-50/50 p-4 rounded-xl border border-slate-200/40">
                                     <label class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider">Select Target Bank</label>
                                     <select name="sender_bank" class="w-full h-10 bg-white border border-slate-200 rounded-xl px-3 text-xs focus:outline-none focus:border-[#640D5F]">
@@ -214,7 +214,7 @@
                                     <p class="text-[10px] text-slate-400 leading-normal">Transfer total amount to the selected bank account and enter your sender account name for verification.</p>
                                 </div>
 
-                                <!-- Credit Card -->
+                                
                                 <div id="payment-credit_card" class="payment-details-panel space-y-3 bg-slate-50/50 p-4 rounded-xl border border-slate-200/40 hidden">
                                     <input type="text" placeholder="Card Number (16 digits)" maxlength="16" class="w-full h-10 bg-white border border-slate-200 rounded-xl px-3 text-xs focus:outline-none focus:border-[#640D5F]">
                                     <div class="grid grid-cols-2 gap-3">
@@ -224,13 +224,13 @@
                                     <input type="text" placeholder="Cardholder Name" class="w-full h-10 bg-white border border-slate-200 rounded-xl px-3 text-xs focus:outline-none focus:border-[#640D5F]">
                                 </div>
 
-                                <!-- PayPal -->
+                                
                                 <div id="payment-paypal" class="payment-details-panel space-y-3 bg-slate-50/50 p-4 rounded-xl border border-slate-200/40 hidden">
                                     <input type="email" placeholder="PayPal Email Address" class="w-full h-10 bg-white border border-slate-200 rounded-xl px-3 text-xs focus:outline-none focus:border-[#640D5F]">
                                     <p class="text-[10px] text-slate-400 leading-normal">You will be redirected to PayPal authorization upon clicking confirm.</p>
                                 </div>
 
-                                <!-- Total Pricing Row -->
+                                
                                 <div class="flex justify-between items-center py-2.5 border-t border-slate-50 mt-4">
                                     <span class="text-sm font-semibold text-slate-500">Total Price</span>
                                     <span id="total-price" class="text-lg font-extrabold text-[#640D5F]">
@@ -242,7 +242,7 @@
                                     </span>
                                 </div>
 
-                                <!-- Action Buttons -->
+                                
                                 <div class="grid grid-cols-1 gap-2 pt-2">
                                     <button 
                                         type="submit" 
@@ -253,7 +253,7 @@
                                 </div>
                             </form>
 
-                            <!-- Add to Favorites Form -->
+                            
                             <form action="{{ route('favorites.store') }}" method="POST" class="pt-2">
                                 @csrf
                                 <input type="hidden" name="event_id" value="{{ $event->id }}">
@@ -266,7 +266,7 @@
                                 </button>
                             </form>
                         @else
-                            <!-- Guest CTA Button -->
+                            
                             <div class="space-y-4">
                                 <p class="text-xs text-slate-500 text-center leading-relaxed">Login to reserve your spots and access complete ticketing history.</p>
                                 <a 
@@ -283,15 +283,15 @@
         </div>
     </main>
 
-    <!-- Footer -->
+    
     <x-guest-footer />
 
-    <!-- JavaScript -->
+    
     <script>
         let ticketQuantity = 1;
         const pricePerUnit = {{ $event->price }};
 
-        // Function to update the ticket quantity and total price
+        
         function updateQuantity(change) {
             ticketQuantity += change;
             if (ticketQuantity < 1) ticketQuantity = 1;
@@ -312,12 +312,12 @@
             }
         }
         
-        // Function to format numbers to Rupiah currency format
+        
         function formatRupiah(amount) {
             return 'Rp' + amount.toLocaleString('id-ID', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
         }
 
-        // Toggle payment details panel based on selected method
+        
         function togglePaymentFields(value) {
             document.querySelectorAll('.payment-details-panel').forEach(panel => {
                 panel.classList.add('hidden');

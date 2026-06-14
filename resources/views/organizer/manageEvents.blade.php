@@ -5,7 +5,7 @@
 @section('content')
 <div class="space-y-6 pb-12 w-full">
     
-    <!-- Header Summary Card -->
+    
     <div class="bg-white border border-slate-100 rounded-2xl p-4 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4 mb-6">
         <div class="flex items-center gap-3">
             <div class="w-8 h-8 rounded-lg bg-[#640D5F]/5 text-[#640D5F] flex items-center justify-center flex-shrink-0">
@@ -19,12 +19,12 @@
         </a>
     </div>
 
-    <!-- Search Box & Filters -->
+    
     <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-6">
         <form method="GET" action="{{ route('organizer.manageEvents') }}" class="flex flex-col md:flex-row items-center gap-4">
             @csrf
             
-            <!-- Search Text -->
+            
             <div class="relative w-full flex-[2]">
                 <i data-lucide="search" class="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400 w-4.5 h-4.5"></i>
                 <input 
@@ -36,7 +36,7 @@
                 />
             </div>
             
-            <!-- Category Filter -->
+            
             <div class="relative w-full flex-[1]">
                 <select name="category" class="w-full h-11 bg-slate-50 border border-slate-200 rounded-xl px-4 text-sm focus:outline-none focus:border-[#640D5F] appearance-none cursor-pointer text-slate-500">
                     <option value="">All Categories</option>
@@ -51,7 +51,7 @@
                 </div>
             </div>
             
-            <!-- Date Filter -->
+            
             <div class="relative w-full flex-[1]">
                 <i data-lucide="calendar" class="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400 w-4 h-4"></i>
                 <input type="date" name="date" value="{{ request('date') }}" class="w-full h-11 bg-slate-50 border border-slate-200 rounded-xl pl-12 pr-4 focus:outline-none focus:border-[#640D5F] text-sm text-slate-500" />
@@ -63,11 +63,11 @@
         </form>
     </div>
 
-    <!-- Events Listing Grid -->
+    
     <div class="grid grid-cols-1 gap-6">
         @forelse ($events as $event)
         <div class="bg-white border border-slate-100 rounded-2xl shadow-sm overflow-hidden flex flex-col md:flex-row h-auto md:h-48 group">
-            <!-- Card Image -->
+            
             <div class="w-full md:w-1/3 h-48 md:h-full bg-cover bg-center bg-slate-100 overflow-hidden relative">
                 <img src="{{ Str::startsWith($event->image, ['http://', 'https://']) ? $event->image : ($event->image ? asset($event->image) : 'https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=800&auto=format&fit=crop&q=80') }}" alt="{{ $event->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                 <span class="absolute top-4 left-4 bg-white/95 backdrop-blur-sm text-[#640D5F] text-[9px] font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-sm">
@@ -75,7 +75,7 @@
                 </span>
             </div>
 
-            <!-- Card Content -->
+            
             <div class="w-full md:w-2/3 p-6 flex flex-col justify-between">
                 <div>
                     <div class="flex items-center gap-1.5 text-[#640D5F] text-xs font-semibold">
@@ -104,7 +104,7 @@
                         </span>
                     </div>
 
-                    <!-- Manage Buttons -->
+                    
                     <div class="flex gap-2">
                         <a href="{{ route('organizer.editEvent', $event->id) }}" 
                            class="inline-flex items-center gap-1 px-4 py-2 bg-slate-50 border border-slate-200 text-slate-600 hover:text-[#640D5F] hover:border-[#640D5F]/30 rounded-xl text-xs font-semibold transition">
@@ -132,13 +132,13 @@
         @endforelse
     </div>
 
-    <!-- Pagination -->
+    
     <div class="mt-6">
         {{ $events->links() }}
     </div>
 </div>
 
-<!-- Modal for Delete Confirmation -->
+
 <div id="deleteModal" class="fixed inset-0 bg-slate-900 bg-opacity-50 flex justify-center items-center hidden z-50">
     <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md p-6 border border-slate-100 mx-4">
         <h3 class="text-lg font-bold text-slate-900 mb-2">Delete Event</h3>
@@ -166,7 +166,7 @@
     function openDeleteModal(eventId) {
         const deleteModal = document.getElementById('deleteModal');
         const deleteForm = document.getElementById('deleteForm');
-        // Let's use route configuration dynamically, or direct routing pattern
+        
         deleteForm.action = "{{ route('admin.deleteEvent', '') }}/" + eventId;
         deleteModal.classList.remove('hidden');
     }

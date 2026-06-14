@@ -11,11 +11,11 @@
       @csrf
       @method('PUT')
       
-      <!-- Profile Picture Upload (Left Column) -->
+      
       <div class="flex flex-col items-center space-y-4">
         <label for="profile" class="block text-xs font-semibold text-slate-400 uppercase tracking-wider text-center">Profile Picture</label>
         <div class="relative w-32 h-32 rounded-full border border-slate-200 hover:border-[#640D5F] bg-slate-50/50 flex items-center justify-center cursor-pointer transition overflow-hidden group shadow-inner" onclick="document.getElementById('profile').click();">
-          <!-- Preview image -->
+          
           <img id="profile-preview" 
             src="{{ old('profile', $user->profile ? asset($user->profile) : 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=400&auto=format&fit=crop&q=80') }}" 
             alt="Profile Picture" 
@@ -32,9 +32,9 @@
         @enderror
       </div>
       
-      <!-- Form Fields (Right Column) -->
+      
       <div class="md:col-span-2 space-y-5">
-        <!-- Name Input -->
+        
         <div>
           <label for="name" class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Name</label>
           <input type="text" id="name" name="name" value="{{ old('name', $user->name) }}" 
@@ -45,7 +45,7 @@
           @enderror
         </div>
         
-        <!-- Email Input -->
+        
         <div>
           <label for="email" class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Email Address</label>
           <input type="email" id="email" name="email" value="{{ old('email', $user->email) }}" 
@@ -56,7 +56,7 @@
           @enderror
         </div>
 
-        <!-- Password Input -->
+        
         <div>
           <label for="password" class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
             New Password <span class="text-slate-400 font-normal lowercase">(leave empty to keep current password)</span>
@@ -68,7 +68,7 @@
           @enderror
         </div>      
 
-        <!-- Confirm Password Input -->
+        
         <div>
           <label for="password_confirmation" class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Confirm New Password</label>
           <input type="password" id="password_confirmation" name="password_confirmation" 
@@ -78,7 +78,7 @@
           @enderror
         </div>
         
-        <!-- Role Selection -->
+        
         <div>
           <label for="role" class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Role</label>
           <div class="relative">
@@ -98,7 +98,7 @@
           @enderror
         </div>
         
-        <!-- Action Buttons -->
+        
         <div class="flex justify-end space-x-3 pt-4 border-t border-slate-100">
           <a href="{{ route('admin.manageUsers') }}" 
             class="px-5 py-2.5 bg-slate-100 text-slate-600 rounded-xl hover:bg-slate-200 text-sm font-semibold transition">

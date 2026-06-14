@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="space-y-6 pb-12">
-    <!-- Header -->
+    
     <div class="bg-white border border-slate-100 rounded-2xl p-4 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4">
         <div class="flex items-center gap-3">
             <div class="w-8 h-8 rounded-lg bg-[#1B1464]/5 text-[#1B1464] flex items-center justify-center flex-shrink-0">
@@ -18,9 +18,9 @@
         </div>
     </div>
 
-    <!-- KPI Cards -->
+    
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <!-- Card 1: Total Sales -->
+        
         <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm flex items-center justify-between">
             <div>
                 <span class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Total Sales</span>
@@ -31,7 +31,7 @@
             </div>
         </div>
     
-        <!-- Card 2: Tickets Sold -->
+        
         <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm flex items-center justify-between">
             <div>
                 <span class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Tickets Sold</span>
@@ -42,7 +42,7 @@
             </div>
         </div>
     
-        <!-- Card 3: Total Events -->
+        
         <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm flex items-center justify-between">
             <div>
                 <span class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Total Events</span>
@@ -54,9 +54,9 @@
         </div>
     </div>
   
-    <!-- Charts Section -->
+    
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <!-- Line Chart: Tickets Sold Per Day -->
+        
         <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-5 flex flex-col justify-between">
             <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Tickets Sold Per Day</h3>
             <div class="h-56 relative w-full">
@@ -64,7 +64,7 @@
             </div>
         </div>
 
-        <!-- Donut Chart: Sales by Event -->
+        
         <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-5 flex flex-col justify-between">
             <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Ticket Sales by Event</h3>
             <div class="h-56 relative w-full">
@@ -72,7 +72,7 @@
             </div>
         </div>
 
-        <!-- Bar Chart: Sales vs Tickets Sold -->
+        
         <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-5 flex flex-col justify-between">
             <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Sales vs Tickets Sold</h3>
             <div class="h-56 relative w-full">
@@ -84,7 +84,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    // Line Chart: Tickets Sold Per Day
+    
     const ticketsPerDayChart = new Chart(document.getElementById('ticketsPerDayChart'), {
         type: 'line',
         data: {
@@ -106,7 +106,7 @@
         }
     });
 
-    // Donut Chart: Ticket Sales by Event
+    
     const ticketSalesByEventChart = new Chart(document.getElementById('ticketSalesByEventChart'), {
       type: 'doughnut',
       data: {
@@ -125,7 +125,7 @@
       }
   });
 
-    // Bar Chart: Sales vs Tickets Sold
+    
     const salesVsTicketsChart = new Chart(document.getElementById('salesVsTicketsChart'), {
         type: 'bar',
         data: {

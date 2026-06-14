@@ -17,10 +17,10 @@
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col justify-between">
-    <!-- Navbar -->
+    
     <x-guest-navbar />
 
-    <!-- Header Banner -->
+    
     <section class="bg-gradient-to-r from-[#1B1464] to-[#640D5F] py-12 text-white">
         <div class="container mx-auto px-6 lg:px-20">
             <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight">About Tixtoria</h1>
@@ -28,16 +28,16 @@
         </div>
     </section>
 
-    <!-- About Content -->
+    
     <section class="py-16">
         <div class="container mx-auto px-6 lg:px-20">
             <div class="bg-white border border-slate-100 rounded-2xl shadow-xl p-8 md:p-12 flex flex-col lg:flex-row items-center gap-12">
-                <!-- Image -->
+                
                 <div class="w-full lg:w-1/2 relative">
                     <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?w=800&auto=format&fit=crop&q=80" alt="About Tixtoria" class="rounded-2xl shadow-md w-full object-cover aspect-[4/3]">
                     <div class="absolute -bottom-6 -right-6 w-32 h-32 bg-[#640D5F]/10 rounded-2xl -z-10"></div>
                 </div>
-                <!-- Text -->
+                
                 <div class="w-full lg:w-1/2 space-y-6">
                     <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#640D5F]/10 text-[#640D5F] text-[10px] font-bold uppercase tracking-wider">
                         Who We Are
@@ -54,7 +54,7 @@
         </div>
     </section>
 
-    <!-- Footer -->
+    
     <x-guest-footer />
 
     <script>

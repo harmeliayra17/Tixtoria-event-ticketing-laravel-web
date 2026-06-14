@@ -25,14 +25,14 @@
             </p>
         </div>
 
-        <!-- Password Reset Form -->
+        
         <form method="POST" action="{{ route('password.store') }}" class="w-full">
             @csrf
 
-            <!-- Password Reset Token -->
+            
             <input type="hidden" name="token" value="{{ $request->route('token') }}">
 
-            <!-- Email Address -->
+            
             <div class="mb-4">
                 <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email</label>
                 <input type="email" id="email" name="email" value="{{ old('email', $request->email) }}" required autofocus autocomplete="username"
@@ -42,7 +42,7 @@
                 @enderror
             </div>
 
-            <!-- Password -->
+            
             <div class="mt-4 mb-4">
                 <label for="password" class="block text-gray-700 text-sm font-bold mb-2">Password</label>
                 <input type="password" id="password" name="password" required autocomplete="new-password"
@@ -52,7 +52,7 @@
                 @enderror
             </div>
 
-            <!-- Confirm Password -->
+            
             <div class="mt-4 mb-4">
                 <label for="password_confirmation" class="block text-gray-700 text-sm font-bold mb-2">Confirm Password</label>
                 <input type="password" id="password_confirmation" name="password_confirmation" required autocomplete="new-password"
@@ -62,7 +62,7 @@
                 @enderror
             </div>
 
-            <!-- Reset Password Button -->
+            
             <div class="flex items-center justify-end mt-4">
                 <button type="submit" class="w-full bg-[#640D5F] text-white py-2 px-4 rounded hover:bg-[#1B1464]">
                     Reset Password

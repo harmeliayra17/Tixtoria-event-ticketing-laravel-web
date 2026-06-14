@@ -1,11 +1,11 @@
 <header x-data="{ mobileMenuOpen: false }" class="bg-white/95 backdrop-blur-md border-b border-slate-100 sticky top-0 z-50 transition-all duration-300">
     <div class="mx-auto px-6 lg:px-20 py-4 flex justify-between gap-6 items-center">
-        <!-- Logo -->
+        
         <a href="{{ url('/') }}" class="flex items-center shrink-0">
             <img src="{{ asset('images/logo.png') }}" alt="Tixtoria Logo" class="h-8 rounded-md">
         </a>
         
-        <!-- Desktop Nav -->
+        
         <nav class="hidden lg:flex space-x-8">
             <a href="{{ url('/') }}" class="text-[#1B1464] hover:text-[#640D5F] text-sm font-medium relative py-1.5 transition {{ Request::is('/') ? 'text-[#640D5F]' : '' }}">
                 Home
@@ -28,7 +28,7 @@
             </a>
         </nav>           
 
-        <!-- Desktop Action Buttons -->
+        
         <div class="hidden lg:flex items-center">
             @auth
             <div x-data="{ open: false }" class="relative">
@@ -38,7 +38,7 @@
                     <i data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-200" :class="{'rotate-180': open}"></i>
                 </button>
             
-                <!-- Dropdown -->
+                
                 <div x-show="open" 
                      @click.away="open = false" 
                      class="absolute right-0 mt-2 w-48 bg-white border border-slate-100 rounded-2xl shadow-xl z-50 overflow-hidden"
@@ -72,22 +72,22 @@
             @endauth              
         </div>
 
-        <!-- Mobile Menu Hamburger Button -->
+        
         <button @click="mobileMenuOpen = !mobileMenuOpen" 
                 class="lg:hidden text-slate-700 hover:text-[#640D5F] focus:outline-none flex items-center p-2 rounded-lg hover:bg-slate-50 transition" 
                 aria-label="Toggle menu">
-            <!-- Menu Icon -->
+            
             <svg x-show="!mobileMenuOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
             </svg>
-            <!-- Close Icon -->
+            
             <svg x-show="mobileMenuOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="display: none;">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
             </svg>
         </button>
     </div>
 
-    <!-- Mobile Dropdown Menu -->
+    
     <div x-show="mobileMenuOpen" 
          @click.away="mobileMenuOpen = false"
          x-transition:enter="transition ease-out duration-200"

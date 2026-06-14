@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="w-full pb-12">
-    <!-- Header Summary Card -->
+    
     <div class="bg-white border border-slate-100 rounded-2xl p-4 shadow-sm mb-6 flex items-center gap-3">
         <div class="w-8 h-8 rounded-lg bg-rose-50 text-rose-500 flex items-center justify-center flex-shrink-0">
             <i data-lucide="heart" class="w-4 h-4"></i>
@@ -24,7 +24,7 @@
             @foreach ($favorites as $favorite)
                 @if($favorite->event)
                     <a href="{{ route('events.show', $favorite->event->id) }}" class="group bg-white border border-slate-100 rounded-2xl overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between h-full relative">
-                        <!-- Image & Category Badge -->
+                        
                         <div class="relative overflow-hidden h-48 bg-slate-100">
                             <img src="{{ Str::startsWith($favorite->event->image, ['http://', 'https://']) ? $favorite->event->image : ($favorite->event->image ? asset($favorite->event->image) : 'https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=800&auto=format&fit=crop&q=80') }}" alt="{{ $favorite->event->title }}" class="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500">
                             <span class="absolute top-4 left-4 bg-white/95 backdrop-blur-sm text-[#640D5F] text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-sm">
@@ -32,7 +32,7 @@
                             </span>
                         </div>
                         
-                        <!-- Details -->
+                        
                         <div class="p-5 flex-1 flex flex-col justify-between">
                             <div>
                                 <div class="flex items-center gap-1.5 text-[#640D5F] text-xs font-semibold">

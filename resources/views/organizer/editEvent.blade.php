@@ -11,11 +11,11 @@
       @csrf
       @method('PUT')
       
-      <!-- Image Upload (Left Column) -->
+      
       <div class="flex flex-col items-center space-y-4">
         <label for="image" class="block text-xs font-semibold text-slate-400 uppercase tracking-wider text-center">Event Banner</label>
         <div class="relative w-full aspect-[4/3] rounded-2xl border-2 border-dashed border-slate-200 hover:border-[#640D5F] bg-slate-50/50 flex flex-col items-center justify-center cursor-pointer transition overflow-hidden group shadow-inner" onclick="document.getElementById('image').click();">
-          <!-- Preview image -->
+          
           <img id="image-preview" 
             src="{{ Str::startsWith($event->image, ['http://', 'https://']) ? $event->image : ($event->image ? asset($event->image) : 'https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=800&auto=format&fit=crop&q=80') }}" 
             alt="Event Image Preview" 
@@ -32,9 +32,9 @@
         @enderror
       </div>
       
-      <!-- Form Fields (Right Column) -->
+      
       <div class="md:col-span-2 space-y-5">
-        <!-- Title Input -->
+        
         <div>
           <label for="title" class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Event Title</label>
           <input type="text" id="title" name="title" 
@@ -46,7 +46,7 @@
           @enderror
         </div>
         
-        <!-- Description Input -->
+        
         <div>
           <label for="description" class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Description</label>
           <textarea id="description" name="description" 
@@ -57,7 +57,7 @@
           @enderror
         </div>
 
-        <!-- Category Selection -->
+        
         <div>
           <label for="category" class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Category</label>
           <div class="relative">
@@ -80,7 +80,7 @@
           @enderror
         </div>
 
-        <!-- Date & Time Inputs -->
+        
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label for="date" class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Date</label>
@@ -98,7 +98,7 @@
           </div>
         </div>
 
-        <!-- Location Name -->
+        
         <div>
           <label for="location_name" class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Location Venue Name</label>
           <input type="text" id="location_name" name="location_name" 
@@ -124,7 +124,7 @@
           </div>
         </div>
 
-        <!-- Price & Quota Inputs -->
+        
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label for="price" class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Price (Rp)</label>
@@ -141,7 +141,7 @@
           </div>
         </div>
         
-        <!-- Submit Button -->
+        
         <div class="flex justify-end space-x-3 pt-4 border-t border-slate-100">
           <a href="{{ route('organizer.manageEvents') }}" 
             class="px-5 py-2.5 bg-slate-100 text-slate-600 rounded-xl hover:bg-slate-200 text-sm font-semibold transition">

@@ -4,9 +4,9 @@
 
 @section('content')
 <div class="space-y-6 pb-12 w-full">
-  <!-- KPI Widgets -->
+  
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-    <!-- Card 1: User Count -->
+    
     <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm flex items-center justify-between">
       <div>
         <span class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Total Clients</span>
@@ -17,7 +17,7 @@
       </div>
     </div>
 
-    <!-- Card 2: Organizer Count -->
+    
     <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm flex items-center justify-between">
       <div>
         <span class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Total Organizers</span>
@@ -29,9 +29,9 @@
     </div>
   </div>  
 
-  <!-- Actions Panel -->
+  
   <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm flex flex-col md:flex-row justify-between items-center gap-4">
-    <!-- Search Form -->
+    
     <form action="{{ route('admin.manageUsers') }}" method="GET" class="flex items-center gap-3 w-full md:w-auto">
         <div class="relative w-full max-w-sm">
             <i data-lucide="search" class="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400 w-4 h-4"></i>
@@ -50,7 +50,7 @@
         </button>
     </form>
 
-    <!-- Create User Button -->
+    
     <a 
         href="{{ route('admin.createUser') }}" 
         class="inline-flex items-center gap-1.5 px-5 py-3 bg-emerald-600 text-white text-xs font-bold rounded-xl hover:bg-emerald-700 transition duration-200 shadow-md">
@@ -59,7 +59,7 @@
     </a>
   </div>
 
-  <!-- Users Table Listing -->
+  
   <div class="bg-white border border-slate-100 rounded-2xl shadow-sm overflow-hidden">
     <div class="p-6 border-b border-slate-100">
         <h2 class="text-lg font-bold text-[#1B1464]">User List</h2>
@@ -94,14 +94,14 @@
                 </td>
                 <td class="p-4 pr-6 text-center">
                   <div class="flex justify-center gap-2">
-                      <!-- Edit Button -->
+                      
                       <a href="{{ route('admin.editUser', $user->id) }}" 
                          class="text-slate-600 p-2 bg-slate-50 border border-slate-200 rounded-xl hover:text-[#640D5F] hover:border-[#640D5F]/30 transition" 
                          title="Edit User">
                           <i data-lucide="edit-2" class="w-4 h-4"></i>
                       </a>
               
-                      <!-- Delete Button -->
+                      
                       <button 
                           class="text-rose-600 p-2 bg-rose-50 border border-rose-100 rounded-xl hover:bg-rose-100/50 transition" 
                           title="Delete User" 
@@ -118,7 +118,7 @@
   </div>
 </div>
 
-<!-- Delete Confirmation Modal -->
+
 <div id="deleteModal" class="fixed inset-0 bg-slate-900 bg-opacity-50 flex justify-center items-center hidden z-50">
     <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md p-6 border border-slate-100 mx-4">
         <h3 class="text-lg font-bold text-slate-900 mb-2">Delete User</h3>

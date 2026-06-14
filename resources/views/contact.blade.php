@@ -17,10 +17,10 @@
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col justify-between">
-    <!-- Navbar -->
+    
     <x-guest-navbar />
 
-    <!-- Header Banner -->
+    
     <section class="bg-gradient-to-r from-[#1B1464] to-[#640D5F] py-12 text-white">
         <div class="container mx-auto px-6 lg:px-20">
             <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight">Contact Us</h1>
@@ -28,11 +28,11 @@
         </div>
     </section>
 
-    <!-- Contact Content -->
+    
     <section class="py-16">
         <div class="container mx-auto px-6 lg:px-20">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
-                <!-- Contact Form Card -->
+                
                 <div class="bg-white border border-slate-100 rounded-2xl shadow-xl p-8">
                     <h2 class="text-2xl font-bold text-[#1B1464] mb-6 flex items-center gap-2">
                         <i data-lucide="mail" class="w-6 h-6 text-[#640D5F]"></i>
@@ -55,12 +55,12 @@
                     </form>
                 </div>
 
-                <!-- Contact Info Card -->
+                
                 <div class="bg-white border border-slate-100 rounded-2xl shadow-xl p-8 flex flex-col justify-between">
                     <div>
                         <h2 class="text-2xl font-bold text-[#1B1464] mb-8">Contact Information</h2>
                         <div class="space-y-6">
-                            <!-- Email -->
+                            
                             <div class="flex items-start gap-4">
                                 <div class="w-10 h-10 rounded-xl bg-[#640D5F]/5 flex items-center justify-center flex-shrink-0">
                                     <i data-lucide="mail" class="w-5 h-5 text-[#640D5F]"></i>
@@ -71,7 +71,7 @@
                                 </div>
                             </div>
                             
-                            <!-- Phone -->
+                            
                             <div class="flex items-start gap-4">
                                 <div class="w-10 h-10 rounded-xl bg-[#640D5F]/5 flex items-center justify-center flex-shrink-0">
                                     <i data-lucide="phone" class="w-5 h-5 text-[#640D5F]"></i>
@@ -82,7 +82,7 @@
                                 </div>
                             </div>
 
-                            <!-- Address -->
+                            
                             <div class="flex items-start gap-4">
                                 <div class="w-10 h-10 rounded-xl bg-[#640D5F]/5 flex items-center justify-center flex-shrink-0">
                                     <i data-lucide="map-pin" class="w-5 h-5 text-[#640D5F]"></i>
@@ -100,7 +100,7 @@
         </div>
     </section>
 
-    <!-- Footer -->
+    
     <x-guest-footer />
 
     <script>

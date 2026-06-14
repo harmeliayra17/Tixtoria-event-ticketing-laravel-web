@@ -31,7 +31,7 @@
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen py-12 px-4 md:px-8">
 
-    <!-- Top Action Bar (hidden when printing) -->
+    
     <div class="max-w-3xl mx-auto mb-6 flex justify-between items-center no-print">
         <a href="{{ route('user.ticket') }}" class="inline-flex items-center gap-2 text-slate-600 hover:text-[#640D5F] font-semibold text-sm transition">
             <i data-lucide="arrow-left" class="w-4 h-4"></i>
@@ -43,9 +43,9 @@
         </button>
     </div>
 
-    <!-- Invoice Sheet -->
+    
     <div class="max-w-3xl mx-auto bg-white border border-slate-100 rounded-2xl shadow-xl p-8 md:p-12 invoice-card">
-        <!-- Header -->
+        
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 border-b border-slate-100 pb-8">
             <div>
                 <img src="{{ asset('images/logo.png') }}" alt="Tixtoria Logo" class="h-8 rounded-md mb-2">
@@ -60,7 +60,7 @@
             </div>
         </div>
 
-        <!-- Bill To & Metadata -->
+        
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8 py-8 border-b border-slate-100 text-sm">
             <div>
                 <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2">Billing Details</h3>
@@ -77,7 +77,7 @@
             </div>
         </div>
 
-        <!-- Event Details List -->
+        
         <div class="py-8">
             <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-4">Ticket details</h3>
             <div class="overflow-x-auto">
@@ -124,9 +124,9 @@
             </div>
         </div>
 
-        <!-- Grand Total & QR Code Section -->
+        
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8 pt-8 border-t border-slate-100">
-            <!-- QR Verification -->
+            
             <div class="md:col-span-1 flex flex-col items-center md:items-start text-center md:text-left">
                 <h4 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Entrance Ticket</h4>
                 <div class="bg-slate-50 p-2.5 rounded-xl border border-slate-100">
@@ -135,7 +135,7 @@
                 <span class="text-[9px] text-slate-400 mt-2 font-medium">Scan QR code at the entrance gate.</span>
             </div>
 
-            <!-- Price Breakdown -->
+            
             <div class="md:col-span-2 space-y-3 text-sm flex flex-col justify-end">
                 <div class="flex justify-between items-center text-slate-500">
                     <span>Subtotal Price</span>
@@ -165,7 +165,7 @@
             </div>
         </div>
 
-        <!-- Terms and Notes -->
+        
         <div class="mt-12 pt-8 border-t border-slate-100 text-center md:text-left text-xs text-slate-400 space-y-1">
             <p class="font-semibold text-slate-500">Terms & Conditions</p>
             <p>1. Please present either a printed copy of this invoice or show the QR code on your mobile device at the venue entrance.</p>

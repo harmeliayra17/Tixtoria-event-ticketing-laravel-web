@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="space-y-6 pb-12 w-full animate-fade-in">
-    <!-- Header Card -->
+    
     <div class="bg-white border border-slate-100 rounded-2xl p-4 shadow-sm flex items-center gap-3">
         <div class="w-8 h-8 rounded-lg bg-[#640D5F]/5 text-[#640D5F] flex items-center justify-center flex-shrink-0">
             <i data-lucide="bar-chart-3" class="w-4 h-4"></i>
@@ -12,9 +12,9 @@
         <p class="text-xs text-slate-500">Platform-wide sales metrics, ticket statistics, and top performing events.</p>
     </div>
 
-    <!-- Quick Metrics Cards -->
+    
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- Metric 1: Total Sales -->
+        
         <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm flex items-center justify-between">
             <div>
                 <span class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Total Revenue Generated</span>
@@ -25,7 +25,7 @@
             </div>
         </div>
 
-        <!-- Metric 2: Total Tickets Sold -->
+        
         <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm flex items-center justify-between">
             <div>
                 <span class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Total Tickets Distributed</span>
@@ -37,7 +37,7 @@
         </div>
     </div>
 
-    <!-- Top 5 Events Card -->
+    
     <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm">
         <h3 class="text-base font-bold text-slate-800 mb-6 flex items-center gap-2">
             <i data-lucide="trophy" class="w-5 h-5 text-amber-500"></i>
@@ -48,7 +48,7 @@
             @forelse ($topEvents as $event)
                 <li class="py-4 first:pt-0 last:pb-0 flex items-center justify-between">
                     <div class="flex items-center gap-4">
-                        <!-- Rank Number Badge -->
+                        
                         <div class="w-9 h-9 flex items-center justify-center rounded-xl font-bold text-sm shadow-sm
                             @if($loop->iteration == 1) bg-amber-50 text-amber-600 border border-amber-200
                             @elseif($loop->iteration == 2) bg-slate-50 text-slate-600 border border-slate-200

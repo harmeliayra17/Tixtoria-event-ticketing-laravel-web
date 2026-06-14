@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="space-y-6 pb-12 w-full">
-    <!-- Welcome Header -->
+    
     <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4">
         <div class="flex items-center gap-3.5">
             <div class="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center flex-shrink-0">
@@ -17,9 +17,9 @@
         </div>
     </div>
 
-    <!-- Quick Navigation Metrics -->
+    
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- Tickets Summary Card -->
+        
         <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm flex items-center justify-between">
             <div>
                 <span class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Total Bookings</span>
@@ -34,7 +34,7 @@
             </div>
         </div>
 
-        <!-- Favorites Summary Card -->
+        
         <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm flex items-center justify-between">
             <div>
                 <span class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Saved Favorites</span>
@@ -50,10 +50,10 @@
         </div>
     </div>
 
-    <!-- Dashboard Content Area (Split Grid) -->
+    
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
         
-        <!-- Column 1: Recent Tickets -->
+        
         <div class="bg-white border border-slate-100 rounded-2xl shadow-sm flex flex-col justify-between overflow-hidden">
             <div>
                 <div class="p-6 border-b border-slate-100 flex items-center justify-between">
@@ -110,7 +110,7 @@
             </div>
         </div>
 
-        <!-- Column 2: Recent Favorites -->
+        
         <div class="bg-white border border-slate-100 rounded-2xl shadow-sm flex flex-col justify-between overflow-hidden">
             <div>
                 <div class="p-6 border-b border-slate-100 flex items-center justify-between">

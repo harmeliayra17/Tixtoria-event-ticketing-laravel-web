@@ -24,7 +24,7 @@
         @endif
 
         <div class="mt-4 flex items-center justify-between">
-            <!-- Resend Verification Email Form -->
+            
             <form method="POST" action="{{ route('verification.send') }}">
                 @csrf
 
@@ -35,7 +35,7 @@
                 </div>
             </form>
 
-            <!-- Logout Form -->
+            
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
 

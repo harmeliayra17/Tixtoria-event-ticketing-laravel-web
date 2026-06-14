@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="space-y-6 pb-12">
-    <!-- Header -->
+    
     <div class="bg-white border border-slate-100 rounded-2xl p-4 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4">
         <div class="flex items-center gap-3">
             <div class="w-8 h-8 rounded-lg bg-[#1B1464]/5 text-[#1B1464] flex items-center justify-center flex-shrink-0">
@@ -18,9 +18,9 @@
         </div>
     </div>
 
-    <!-- Summary Metrics -->
+    
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <!-- Total Events -->
+        
         <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm flex items-center justify-between">
             <div>
                 <span class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Total Events</span>
@@ -31,7 +31,7 @@
             </div>
         </div>
 
-        <!-- Tickets Sold -->
+        
         <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm flex items-center justify-between">
             <div>
                 <span class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Tickets Sold</span>
@@ -42,7 +42,7 @@
             </div>
         </div>
 
-        <!-- Total Revenue -->
+        
         <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm flex items-center justify-between">
             <div>
                 <span class="text-xs text-slate-400 font-semibold uppercase tracking-wider">Total Revenue</span>
@@ -54,7 +54,7 @@
         </div>
     </div>
 
-    <!-- Upcoming Events Table -->
+    
     <div class="bg-white border border-slate-100 rounded-2xl shadow-sm overflow-hidden">
         <div class="p-6 border-b border-slate-100">
             <h3 class="text-lg font-bold text-[#1B1464]">Upcoming Events</h3>
@@ -97,9 +97,9 @@
         </div>
     </div>
 
-    <!-- Charts Section -->
+    
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- Tickets Sold Per Event Chart -->
+        
         <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-5 flex flex-col justify-between">
             <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Tickets Sold Per Event</h3>
             <div class="h-56 relative w-full">
@@ -107,7 +107,7 @@
             </div>
         </div>
 
-        <!-- Revenue Per Event Chart -->
+        
         <div class="bg-white border border-slate-100 rounded-2xl shadow-sm p-5 flex flex-col justify-between">
             <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Revenue Per Event</h3>
             <div class="h-56 relative w-full">
@@ -119,7 +119,7 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    // Tickets Sold Per Event Chart
+    
     const ticketsChart = new Chart(document.getElementById('ticketsChart'), {
         type: 'bar',
         data: {
@@ -139,7 +139,7 @@
         }
     });
 
-    // Revenue Per Event Chart
+    
     const revenueChart = new Chart(document.getElementById('revenueChart'), {
         type: 'doughnut',
         data: {

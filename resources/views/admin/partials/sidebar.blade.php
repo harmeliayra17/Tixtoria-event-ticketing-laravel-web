@@ -77,10 +77,10 @@
 </head>
 <body class="flex bg-slate-50 h-screen overflow-hidden" x-data="{ sidebarOpen: false }">
 
-  <!-- Mobile Sidebar Overlay -->
+  
   <div x-show="sidebarOpen" @click="sidebarOpen = false" class="fixed inset-0 bg-black/40 z-30 lg:hidden" style="display: none;"></div>
 
-  <!-- Sidebar -->
+  
   <aside :class="sidebarOpen ? 'open' : ''" class="sidebar-bg w-[215px] h-full text-white flex flex-col z-40 shadow-xl">
     <div class="p-6 flex items-center border-b border-white/10">
       <img src="{{ asset('images/logo-wht.png') }}" alt="Tixtoria Logo" class="h-8 rounded-md">
@@ -128,12 +128,12 @@
     </nav>      
   </aside>
 
-  <!-- Main Content -->
+  
   <div class="wrapper h-screen flex flex-col">
-    <!-- Fixed Navbar -->
+    
     <nav class="navbar bg-white border-b border-slate-100 fixed top-0 left-0 z-30 w-full p-4 flex items-center justify-between" x-data="{ openNotifications: false, openProfile: false }">
       <div class="flex items-center">
-        <!-- Toggle button -->
+        
         <button @click.stop="sidebarOpen = !sidebarOpen" class="lg:hidden p-2 text-[#1B1464] hover:bg-slate-50 rounded-lg mr-2 focus:outline-none">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
@@ -142,15 +142,15 @@
         <h1 id="page-title" class="text-lg font-bold text-[#1B1464] ml-2 lg:ml-5">@yield('title', 'Dashboard')</h1>
       </div>
 
-      <!-- Notifications and Profile -->
+      
       <div class="flex items-center space-x-4 mr-5">
-        <!-- Notification Dropdown -->
+        
         <div class="relative">
           <button @click.stop="openNotifications = !openNotifications; openProfile = false" class="p-2 text-slate-400 hover:text-slate-600 hover:bg-slate-50 rounded-full relative transition focus:outline-none">
             <i data-lucide="bell" class="w-5 h-5"></i>
             <span class="absolute top-1.5 right-1.5 w-2 h-2 bg-rose-500 rounded-full"></span>
           </button>
-          <!-- Notification Dropdown Menu -->
+          
           <div x-show="openNotifications" 
                @click.away="openNotifications = false" 
                class="absolute right-0 mt-2 w-80 bg-white border border-slate-100 rounded-2xl shadow-xl z-50 overflow-hidden"
@@ -182,7 +182,7 @@
 
         <div class="h-6 w-px bg-slate-100"></div>
 
-        <!-- Profile Dropdown -->
+        
         <div class="relative">
           <button @click.stop="openProfile = !openProfile; openNotifications = false" class="flex items-center gap-2 focus:outline-none hover:opacity-90 transition">
             <img src="{{ $profileUrl ?? (Auth::user()->profile ?? 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150&auto=format&fit=crop&q=80') }}" alt="Profile" class="w-9 h-9 rounded-full object-cover border border-slate-100 hover:ring-2 hover:ring-[#640D5F]/20 transition duration-200">
@@ -193,7 +193,7 @@
             <i data-lucide="chevron-down" class="w-3.5 h-3.5 text-slate-400 hidden md:inline"></i>
           </button>
           
-          <!-- Profile Dropdown Menu -->
+          
           <div x-show="openProfile" 
                @click.away="openProfile = false" 
                class="absolute right-0 mt-2 w-48 bg-white border border-slate-100 rounded-2xl shadow-xl z-50 overflow-hidden"
@@ -227,7 +227,7 @@
       </div>
     </nav>
 
-    <!-- Scrollable Main Content -->
+    
     <main class="flex-1 pt-24 p-8 bg-slate-50 overflow-auto">
       @yield('content')
     </main>

@@ -28,7 +28,7 @@
             display: none;
         }
 
-        /* Smooth scroll styling */
+        
         ::-webkit-scrollbar {
             width: 10px; 
         }
@@ -48,10 +48,10 @@
 
 <body class="bg-slate-50 text-slate-800 antialiased">
 
-    <!-- Navbar -->
+    
     <x-guest-navbar />
 
-    <!-- Header Banner -->
+    
     <section class="bg-gradient-to-r from-[#1B1464] to-[#640D5F] py-12 text-white">
         <div class="container mx-auto px-6 lg:px-20">
             <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight">Explore Event Catalog</h1>
@@ -59,13 +59,13 @@
         </div>
     </section>
 
-    <!-- Search Box & Filter Panel -->
+    
     <section class="-mt-8 px-6 lg:px-20 relative z-20">
         <div class="mx-auto max-w-5xl bg-white text-slate-800 rounded-2xl shadow-xl border border-slate-100 p-6">
             <form action="{{ route('eventCatalog') }}" method="GET" class="flex flex-col md:flex-row items-center gap-4">
                 @csrf
                 
-                <!-- Search input -->
+                
                 <div class="relative w-full flex-[2]">
                     <i data-lucide="search" class="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400 w-5 h-5"></i>
                     <input 
@@ -77,7 +77,7 @@
                     />
                 </div>
 
-                <!-- Date selector -->
+                
                 <div class="relative w-full flex-[1]">
                     <i data-lucide="calendar" class="absolute left-4 top-1/2 transform -translate-y-1/2 text-slate-400 w-4 h-4"></i>
                     <input 
@@ -88,7 +88,7 @@
                     />
                 </div>
     
-                <!-- Submit Button -->
+                
                 <button type="submit" class="w-full md:w-auto h-12 bg-gradient-to-r from-[#640D5F] to-[#1B1464] text-white px-8 rounded-xl font-semibold hover:brightness-110 active:scale-95 transition-all duration-200 flex items-center justify-center gap-2">
                     <span>Search</span>
                 </button>
@@ -96,11 +96,11 @@
         </div>
     </section>    
 
-    <!-- Categories Filters -->
+    
     <section class="container mx-auto px-6 lg:px-20 mt-10">
         <h2 class="text-lg font-bold text-[#1B1464] mb-4">Categories</h2>
         <div class="scroll-container py-2">
-            <!-- All Categories Pill -->
+            
             <a href="{{ route('eventCatalog') }}" 
                class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full text-xs font-bold transition-all duration-200 border shadow-sm {{ !request('category') ? 'bg-[#640D5F] text-white border-[#640D5F]' : 'bg-white hover:bg-slate-100 text-slate-700 border-slate-200' }}">
                 <i data-lucide="tag" class="w-3.5 h-3.5"></i>
@@ -128,7 +128,7 @@
         </div>
     </section>    
 
-    <!-- Events Grid -->
+    
     <section class="container mx-auto px-6 lg:px-20 py-8 mb-16">
         <h2 class="text-2xl font-extrabold text-[#1B1464] mb-6">
             {{ request('search') || request('date') || request('category') ? 'Search Results' : 'All Events' }}
@@ -145,7 +145,7 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                 @foreach ($events as $event)
                     <a href="{{ route('events.show', $event->id) }}" class="group bg-white border border-slate-100 rounded-2xl overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between h-full relative">
-                        <!-- Image & Category Badge -->
+                        
                         <div class="relative overflow-hidden h-48 bg-slate-100">
                             <img src="{{ Str::startsWith($event->image, ['http://', 'https://']) ? $event->image : ($event->image ? asset($event->image) : 'https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=800&auto=format&fit=crop&q=80') }}" alt="{{ $event->title }}" class="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500">
                             <span class="absolute top-4 left-4 bg-white/95 backdrop-blur-sm text-[#640D5F] text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-sm">
@@ -153,7 +153,7 @@
                             </span>
                         </div>
                         
-                        <!-- Details -->
+                        
                         <div class="p-5 flex-1 flex flex-col justify-between">
                             <div>
                                 <div class="flex items-center gap-1.5 text-[#640D5F] text-xs font-semibold">
@@ -187,7 +187,7 @@
         @endif        
     </section>
 
-    <!-- Footer -->
+    
     <x-guest-footer />
 
     <script>
