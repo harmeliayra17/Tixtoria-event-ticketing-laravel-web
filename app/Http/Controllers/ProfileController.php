@@ -100,6 +100,19 @@ class ProfileController extends Controller
         return view('user.dashboard', compact('user', 'profileUrl', 'recentBookings', 'recentFavorites', 'bookingsCount', 'favoritesCount'));
     }
 
+    public function applyOrganizer(Request $request): RedirectResponse
+    {
+        $user = $request->user();
+        
+        if (in_array($user->organizer_status, ['none', 'rejected'])) {
+            $user->organizer_status = 'pending';
+            $user->save();
+            return redirect()->back()->with('success', 'Your application to become an organizer has been submitted successfully.');
+        }
+
+        return redirect()->back()->with('error', 'You cannot apply at this time.');
+    }
+
     public function showPasswordForm(): RedirectResponse
     {
         $user = Auth::user();
