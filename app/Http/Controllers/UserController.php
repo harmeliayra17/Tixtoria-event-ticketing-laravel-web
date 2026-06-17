@@ -13,9 +13,8 @@ class UserController extends Controller
         $userCount = User::where('role', 'user')->count();
         $organizerCount = User::where('role', 'organizer')->count();
         $users = User::all();
-        $pendingUsers = User::where('organizer_status', 'pending')->get();
 
-        return view('admin.manageUsers', compact('userCount', 'organizerCount', 'users', 'pendingUsers'));
+        return view('admin.manageUsers', compact('userCount', 'organizerCount', 'users'));
     }
 
     public function edit(User $user)
@@ -66,7 +65,6 @@ class UserController extends Controller
         $searchQuery = $request->get('search');
         $userCount = User::where('role', 'user')->count();
         $organizerCount = User::where('role', 'organizer')->count();
-        $pendingUsers = User::where('organizer_status', 'pending')->get();
 
         $users = User::query();
 
@@ -76,7 +74,7 @@ class UserController extends Controller
 
         $users = $users->get();
 
-        return view('admin.manageUsers', compact('userCount', 'organizerCount', 'users', 'searchQuery', 'pendingUsers'));
+        return view('admin.manageUsers', compact('userCount', 'organizerCount', 'users', 'searchQuery'));
     }
 
     public function create()
@@ -108,22 +106,5 @@ class UserController extends Controller
         $user->save();
 
         return redirect()->route('admin.manageUsers')->with('success', 'User created successfully');
-    }
-
-    public function approveOrganizer(User $user)
-    {
-        $user->role = 'organizer';
-        $user->organizer_status = 'approved';
-        $user->save();
-
-        return redirect()->route('admin.manageUsers')->with('success', 'User ' . $user->name . ' has been approved as an Organizer.');
-    }
-
-    public function rejectOrganizer(User $user)
-    {
-        $user->organizer_status = 'rejected';
-        $user->save();
-
-        return redirect()->route('admin.manageUsers')->with('success', 'User ' . $user->name . '\'s organizer application has been rejected.');
     }
 }

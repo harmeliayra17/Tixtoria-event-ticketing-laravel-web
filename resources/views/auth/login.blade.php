@@ -103,6 +103,9 @@
             <p class="text-gray-500 text-sm mt-4 text-center">Don't have an account? 
                 <a href="{{ route('register') }}" class="text-indigo-500 hover:underline" style="font-size: 16px">Register now for the best experience!</a>
             </p>
+            <p class="text-gray-400 text-xs mt-2 text-center">Are you an Event Organizer? 
+                <a href="{{ route('register.organizer') }}" class="text-[#640D5F] hover:underline font-semibold">Register here!</a>
+            </p>
         </div>
 
         

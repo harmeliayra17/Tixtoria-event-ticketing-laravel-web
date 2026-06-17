@@ -47,4 +47,39 @@ class RegisteredUserController extends Controller
 
         return redirect(route('dashboard', absolute: false));
     }
+
+    /**
+     * Display the organizer registration view.
+     */
+    public function createOrganizer(): View
+    {
+        return view('auth.register-organizer');
+    }
+
+    /**
+     * Handle an incoming organizer registration request.
+     *
+     * @throws \Illuminate\Validation\ValidationException
+     */
+    public function storeOrganizer(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'password' => ['required', 'confirmed', \Illuminate\Validation\Rules\Password::defaults()],
+        ]);
+
+        $user = User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'role' => 'organizer',
+        ]);
+
+        event(new Registered($user));
+
+        Auth::login($user);
+
+        return redirect(route('organizer.dashboard', absolute: false));
+    }
 }

@@ -18,66 +18,6 @@
         </div>
     @endif
 
-    @if($user->organizer_status === 'pending')
-        <div class="bg-gradient-to-r from-amber-500/10 to-orange-500/10 border border-amber-200 rounded-2xl p-6 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
-            <div class="flex items-center gap-4">
-                <div class="w-14 h-14 rounded-2xl bg-amber-500/20 text-amber-700 flex items-center justify-center flex-shrink-0 animate-pulse">
-                    <i data-lucide="clock" class="w-7 h-7"></i>
-                </div>
-                <div>
-                    <h3 class="text-lg font-bold text-amber-800">Organizer Application Pending</h3>
-                    <p class="text-sm text-amber-700/80 mt-1">
-                        Your application to become an organizer is under review by our administration team. You will be upgraded to an organizer once approved. Please check back later.
-                    </p>
-                </div>
-            </div>
-            <div class="flex-shrink-0 bg-amber-500 text-white text-xs font-semibold px-4 py-2 rounded-xl uppercase tracking-wider">
-                In Review
-            </div>
-        </div>
-    @elseif($user->organizer_status === 'rejected')
-        <div class="bg-gradient-to-r from-rose-500/10 to-red-500/10 border border-rose-200 rounded-2xl p-6 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
-            <div class="flex items-center gap-4">
-                <div class="w-14 h-14 rounded-2xl bg-rose-500/20 text-rose-700 flex items-center justify-center flex-shrink-0">
-                    <i data-lucide="x-circle" class="w-7 h-7"></i>
-                </div>
-                <div>
-                    <h3 class="text-lg font-bold text-rose-800">Application Status: Rejected</h3>
-                    <p class="text-sm text-rose-700/80 mt-1">
-                        We regret to inform you that your organizer application was not approved. You can request again using the button on the right.
-                    </p>
-                </div>
-            </div>
-            <form action="{{ route('user.apply-organizer') }}" method="POST" class="flex-shrink-0">
-                @csrf
-                <button type="submit" class="bg-rose-600 text-white text-xs font-bold px-5 py-3 rounded-xl hover:bg-rose-700 transition duration-200 shadow-md">
-                    Re-Apply Now
-                </button>
-            </form>
-        </div>
-    @elseif($user->organizer_status === 'none')
-        <div class="bg-gradient-to-r from-[#1B1464]/5 to-[#640D5F]/5 border border-slate-100 rounded-2xl p-6 shadow-sm flex flex-col lg:flex-row items-center justify-between gap-6">
-            <div class="flex items-start gap-4">
-                <div class="w-14 h-14 rounded-2xl bg-[#640D5F]/10 text-[#640D5F] flex items-center justify-center flex-shrink-0">
-                    <i data-lucide="sparkles" class="w-7 h-7"></i>
-                </div>
-                <div>
-                    <h3 class="text-lg font-bold text-[#1B1464]">Want to host your own events?</h3>
-                    <p class="text-sm text-slate-500 mt-1">
-                        Apply to become an Event Organizer to create and manage events, sell tickets, track revenues, and more on Tixtoria!
-                    </p>
-                </div>
-            </div>
-            <form action="{{ route('user.apply-organizer') }}" method="POST" class="flex-shrink-0 w-full lg:w-auto text-right">
-                @csrf
-                <button type="submit" class="w-full lg:w-auto inline-flex justify-center items-center gap-1.5 px-6 py-3.5 bg-gradient-to-r from-[#1B1464] to-[#640D5F] text-white text-sm font-bold rounded-xl hover:brightness-110 active:scale-95 transition-all duration-200 shadow-md">
-                    <i data-lucide="user-check" class="w-4 h-4"></i>
-                    <span>Apply as Organizer</span>
-                </button>
-            </form>
-        </div>
-    @endif
-    
     <div class="bg-white border border-slate-100 rounded-2xl p-6 shadow-sm flex flex-col md:flex-row items-center justify-between gap-4">
         <div class="flex items-center gap-3.5">
             <div class="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center flex-shrink-0">

@@ -45,7 +45,6 @@ Route::middleware(['auth', ShareUserData::class])->group(function() {
     Route::get('/user/bookings/{id}/invoice', [BookingController::class, 'invoice'])->name('user.bookings.invoice');
     Route::post('/user/bookings/{id}/upload-proof', [BookingController::class, 'uploadProof'])->name('user.bookings.uploadProof');
     Route::get('/user/favorites', [FavoriteController::class, 'index'])->name('user.favorites');
-    Route::post('/user/apply-organizer', [ProfileController::class, 'applyOrganizer'])->name('user.apply-organizer');
     Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 
 });
@@ -64,7 +63,7 @@ Route::post('/favorites', [FavoriteController::class, 'store'])->name('favorites
 Route::prefix('organizer')->name('organizer.')->middleware(['auth', OrganizerMiddleware::class, ShareOrganizerData::class])->group(function() {
 // });
 // Route::prefix('organizer')->name('organizer.')->group(function() {
-    Route::get('dashboard', [OrganizerController::class, 'dashboardAdmin'])->name('dashboard');
+    Route::get('dashboard', [OrganizerController::class, 'dashboard'])->name('dashboard');
     Route::post('bookings/{id}/upload-proof', [OrganizerController::class, 'uploadProof'])->name('uploadProof');
     Route::get('bookings/{id}/invoice', [OrganizerController::class, 'showInvoice'])->name('showInvoice');
     Route::get('profile/edit', [ProfileController::class, 'editOrganizer'])->name('profile.edit');
@@ -93,8 +92,6 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', AdminMiddleware::cla
     Route::get('manage-users/{user}/edit', [UserController::class, 'edit'])->name('editUser');
     Route::put('manage-users/{user}', [UserController::class, 'update'])->name('updateUser');
     Route::delete('manage-users/{user}', [UserController::class, 'destroy'])->name('destroyUser');
-    Route::patch('manage-users/{user}/approve-organizer', [UserController::class, 'approveOrganizer'])->name('approveOrganizer');
-    Route::patch('manage-users/{user}/reject-organizer', [UserController::class, 'rejectOrganizer'])->name('rejectOrganizer');
 
     Route::get('manage-events', [EventController::class, 'adminIndex'])->name('manageEvents');
     Route::get('events/{id}/edit', [EventController::class, 'edit'])->name('editEvent');
